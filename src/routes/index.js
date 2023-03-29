@@ -2,8 +2,8 @@ const { Router } = require('express');
 const { restart } = require('nodemon');
 const { QueryTypes } = require('sequelize');
 const { User, Post, Tag } = require("../db");
-const getPostById = require('../controllers/post');
-const getAllTags = require('../controllers/tag');
+const getPostById = require('../controllers/getPostById');
+const getAllTags = require('../controllers/getAllTags');
 
 const router = Router();
 
