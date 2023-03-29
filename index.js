@@ -22,7 +22,7 @@ const { conn } = require('./src/db.js');
 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(async() => {console.log('db connected')
+conn.sync({ force: false }).then(async() => {console.log('db connected')
     server.listen(3001, () => {
     console.log('server listening at 3001'); // eslint-disable-line no-console
   });

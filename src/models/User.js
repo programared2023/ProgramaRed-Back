@@ -4,12 +4,14 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('User', {
+    
+  
     username:{
           type:DataTypes.STRING,
           allowNull:false,
-          set(value) {//SET lo guardo siempre en mayúsculas
-          this.setDataValue('name', value.toUpperCase());
-      }
+      //     set(value) {//SET lo guardo siempre en mayúsculas
+      //     this.setDataValue('name', value.toUpperCase());
+      // }
     },
     password: {
       type: DataTypes.STRING,

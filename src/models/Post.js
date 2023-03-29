@@ -7,9 +7,9 @@ module.exports = (sequelize) => {
     title:{
           type:DataTypes.STRING,
           allowNull:false,
-          set(value) {//SET lo guardo siempre en mayúsculas
-          this.setDataValue('name', value.toUpperCase());
-      }
+      //     set(value) {//SET lo guardo siempre en mayúsculas
+      //     this.setDataValue('name', value.toUpperCase());
+      // }
     },
     description: {
       type: DataTypes.STRING,
@@ -19,5 +19,8 @@ module.exports = (sequelize) => {
       type:DataTypes.STRING,
       allowNull:false,
     }
+  
+    
+  
   });
 };
