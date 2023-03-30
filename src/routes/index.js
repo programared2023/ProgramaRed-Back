@@ -2,8 +2,8 @@ const { Router } = require('express');
 const { restart } = require('nodemon');
 const { QueryTypes } = require('sequelize');
 const { User, Post, Tag } = require("../db");
-const getPostById = require('../controllers/getPostById');
-const getAllTags = require('../controllers/getAllTags');
+const {getPostById, getAllPost, getPostByName} = require('../controllers/Post');
+const getAllTags = require('../controllers/Tags');
 
 const router = Router();
 
@@ -66,20 +66,8 @@ router.post('/post', async (req, res) => {
    return res.status(400).json({ error: "faltan datos" })
 });
 
-
-router.get('/post', async (req, res) => {
-   const searchPosts = await Post.findAll()//?incluir comentario
-
-   try {
-      if (searchPosts.length > 0) {
-         return res.status(200).send(searchPosts)
-      }
-      return res.status(400).json({ error: "no contiene post" })
-   } catch (error) {
-      return res.status(400).json({ error: "error a traer todos los post" })
-   }
-});
-
+router.get('/post', getAllPost)
+router.get('/post/:name', getPostByName)
 router.get('/post/:id', getPostById)
 router.get('/tags', getAllTags)
 
