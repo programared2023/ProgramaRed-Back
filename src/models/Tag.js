@@ -9,7 +9,7 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     file:{
-      type:DataTypes.ENUM('Javascript','Vsc','Phyton','Php','Postgresql'),
+      type:DataTypes.STRING,
      allowNull:false,
     }
   });
