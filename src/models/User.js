@@ -9,6 +9,7 @@ module.exports = (sequelize) => {
     username:{
           type:DataTypes.STRING,
           allowNull:false,
+          unique:true
       //     set(value) {//SET lo guardo siempre en mayúsculas
       //     this.setDataValue('name', value.toUpperCase());
       // }

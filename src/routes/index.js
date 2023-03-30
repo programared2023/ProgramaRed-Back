@@ -20,21 +20,25 @@ router.get('/user', async (req, res) => {
       if (allUser.length > 0) {
          return res.status(200).send(allUser)
       }
-      return res.status(400).json({ error: " no hay usuarios cargados" })
+      return res.status(400).json({ error: "no hay usuarios cargados" })
    } catch (error) {
-      return res.status(400).json({ error: "error a traer todos los usuarios" })
+      return res.status(400).send(error.message)
    }
 });
 
 
 router.post('/user', async (req, res) => {
    const { username, password, email, birthdate } = req.body;
-
+   try{
    if (username && password && email && birthdate) {
       const addUser = await User.create({ username: username, password: password, email: email, birthdate: birthdate })
       return res.status(200).send("el usuario fue creado con exito")
    }
    return res.status(400).json({ error: "faltan datos" })
+   }catch(e){
+   return res.status(400).send(e.message)
+   }
+   
 });
 
 
@@ -48,7 +52,7 @@ router.get("/user/:id", async (req, res) => {
       }
       return res.status(200).json(getId)
    } catch (error) {
-      return res.status(400).json({ error: "error a traer por id" })
+     return res.status(400).send(error.message)
    }
 });
 
@@ -56,6 +60,7 @@ router.get("/user/:id", async (req, res) => {
 router.post('/post', async (req, res) => {
    const { title, description, file, userId, nameTag, fileTag } = req.body;
 
+   try{
    if (title && description && file && userId && nameTag && fileTag) {
       const addPost = await Post.create({ title: title, description: description, file: file, UserId: userId })
       const addTag = await Tag.create({
@@ -64,11 +69,19 @@ router.post('/post', async (req, res) => {
       return res.status(200).send("el post fue creado con exito")
    }
    return res.status(400).json({ error: "faltan datos" })
+   }catch(e){
+   return res.status(400).send(e.message)
+   }
+   
 });
 
 router.get('/post', getAllPost)
 router.get('/post/:name', getPostByName)
 router.get('/post/:id', getPostById)
 router.get('/tags', getAllTags)
+
+router.get('/', async (req, res) => {
+   res.status(404).send('404 resource not found')
+})
 
 module.exports = router;
