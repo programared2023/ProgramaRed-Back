@@ -80,8 +80,6 @@ router.get('/post/:name', getPostByName)
 router.get('/post/:id', getPostById)
 router.get('/tags', getAllTags)
 
-router.get('/', async (req, res) => {
-   res.status(404).send('404 resource not found')
-})
+
 
 module.exports = router;

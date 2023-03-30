@@ -17,35 +17,42 @@ async function getAllPost (req, res) {
 };
 
 const getPostByName = async (req, res) => {
+    console.log('Ruta de Post por Nombre');
+    const { name } = req.query
+    let options = {}
     try {
-        let name = req.query.name;
-        let allPost = await getAllPost();
         if (name) {
-           let postName = await allPost.filter((el) => 
-           el.name.toLowerCase().includes(name.toLowerCase()));
-           postName.length
-           ? res.status(200).send(postName)
-           : res.status(404).send('post no encontrado');
-        } else {
-           res.status(200).send(allPost);
+            options = {
+                ...options,
+                where: {
+                    username: name
+                }
+            }
         }
-     } catch (error) {
-        res.status(400).send({ error: error.message });
-     }
+        const allPost = await conn.model('Post').findAll(options)
+        if (allPost.length > 0){
+            return res.status(200).send(allPost)
+        }
+        return res.status(404).send(' no se encontro el post ')
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message);
+    }
 }
 
-const getPostById = async (req, res) => {
+async function getPostById(req, res) {
+    console.log('Ruta Post a ID');
     try {
-        const { id } = req.query
-        const post = await conn.model('Post').findByPk(id)
+        const { id } = req.query;
+        const post = await conn.model('Post').findByPk(id);
         if (post) {
-            return res.status(200).json(post)
+            return res.status(200).json(post);
         } else {
-            return res.status(404).send('No se encontro el post')
+            return res.status(404).send('No se encontro el post');
         }
     } catch (error) {
-        //console.log(error);
-        return res.status(500).send(error.message)
+        console.log(error);
+        return res.status(500).send(error.message);
     }
 }
 
