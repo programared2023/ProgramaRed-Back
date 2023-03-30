@@ -12,7 +12,7 @@ async function getAllPost (req, res) {
          return  res.status(200).send(searchPosts) }
       return res.status(400).json({error:"no contiene post"})
    }catch (error) {
-     return res.status(400).json({error:"error a traer todos los post"})
+     return res.status(400).send(error.message)
 }
 };
 
@@ -44,8 +44,8 @@ const getPostById = async (req, res) => {
             return res.status(404).send('No se encontro el post')
         }
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({ error: 'Hubo un error al consultar el post' })
+        //console.log(error);
+        return res.status(500).send(error.message)
     }
 }
 
