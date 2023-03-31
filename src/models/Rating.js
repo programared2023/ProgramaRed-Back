@@ -8,7 +8,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: true,
     }
-  },{
-    timestamps: false
+  },
+    {
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false
     });
 };

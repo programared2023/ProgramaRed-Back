@@ -4,26 +4,28 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Post', {
-    title:{
-          type:DataTypes.STRING,
-          allowNull:false,
-          set(value) {//SET lo guardo siempre en mayúsculas
-          this.setDataValue('title', value.charAt(0).toUpperCase()+ value.slice(1).toLowerCase());
-          }
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      //     set(value) {//SET lo guardo siempre en mayúsculas
+      //     this.setDataValue('name', value.toUpperCase());
+      // }
     },
     description: {
       type: DataTypes.TEXT, //admite cadenas de texto de más de 255 characters
       allowNull: false,
       set(value) {//SET lo guardo siempre en mayúsculas
-          this.setDataValue('description', value.charAt(0).toUpperCase()+ value.slice(1));
-          }
+        this.setDataValue('description', value.charAt(0).toUpperCase() + value.slice(1));
+      }
     },
-    file:{
-      type:DataTypes.STRING,
-      allowNull:false,
+    file: {
+      type: DataTypes.STRING,
+      allowNull: false,
     }
-  
-    
-  
-  });
+  },
+    {
+      timestamps: false,
+      createdAt: true,
+      updatedAt: false
+    });
 };

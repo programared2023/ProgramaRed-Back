@@ -4,12 +4,10 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('User', {
-    
-  
-    username:{
-          type:DataTypes.STRING,
-          allowNull:false,
-          unique:true
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
       //     set(value) {//SET lo guardo siempre en mayúsculas
       //     this.setDataValue('name', value.toUpperCase());
       // }
@@ -21,19 +19,24 @@ module.exports = (sequelize) => {
       //   isAlphanumeric: true, 
       //   }
     },
-    email:{
-      type:DataTypes.STRING,
-      allowNull:false,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        isEmail: true, 
-        }
+        isEmail: true,
+      }
     },
-    birthdate:{
-      type:DataTypes.DATEONLY,
-      allowNull:false,
-      validate: {
-        isDate: true, 
-        }
-    },
-  });
+    // birthdate: {
+    //   type: DataTypes.DATEONLY,
+    //   allowNull: false,
+    //   validate: {
+    //     isDate: true,
+    //   }
+    // },
+  },
+    {
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false
+    });
 };

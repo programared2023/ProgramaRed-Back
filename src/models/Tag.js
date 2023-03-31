@@ -8,9 +8,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    file:{
-      type:DataTypes.STRING,
-     allowNull:false,
-    }
-  });
+    // file: { PARA QUE ES ESTO??
+    //   type: DataTypes.ENUM('Javascript', 'Vsc', 'Phyton', 'Php', 'Postgresql'),
+    //   allowNull: false,
+    // }
+  },
+    {
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false
+    });
 };
