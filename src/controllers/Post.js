@@ -1,49 +1,53 @@
-const { Router } = require('express');
-const {conn, Post} = require ('../db');
-const axios = require ('axios');
+const { conn, Post, User, Tag, Op } = require('../db');
 
-const router = Router();
-
-async function getAllPost (req, res) {
-    const searchPosts =await Post.findAll()//?incluir comentario
-   
-   try {
-      if(searchPosts.length>0){
-         return  res.status(200).send(searchPosts) }
-      return res.status(400).json({error:"no contiene post"})
-   }catch (error) {
-     return res.status(400).send(error.message)
-}
-};
-
-const getPostByName = async (req, res) => {
-    console.log('Ruta de Post por Nombre');
-    const { name } = req.query
-    let options = {}
+async function getAllPost(req, res) {
+    const { title, username, tag } = req.query
+    let options = {
+        include: [User, Tag]
+    }
+    let AND = []
     try {
-        if (name) {
+        if (title) {
+            AND.push({
+                title: {
+                    [Op.like]: `%${title[0].toUpperCase() + title.slice(1)}%`
+                }
+            })
+        }
+        if (username) {
+            AND.push({
+                '$User.username$': {
+                    [Op.like]: `%${username}%`
+                }
+            })
+        }
+        if (tag) {
+            AND.push({
+                '$Tags.name$': {
+                    [Op.like]: `%${tag[0].toUpperCase() + tag.slice(1)}%`
+                }
+            })
+        }
+        if (AND.length) {
             options = {
                 ...options,
                 where: {
-                    username: name
+                    [Op.and]: AND
                 }
             }
         }
-        const allPost = await conn.model('Post').findAll(options)
-        if (allPost.length > 0){
-            return res.status(200).send(allPost)
-        }
-        return res.status(404).send(' no se encontro el post ')
+        const posts = await conn.model('Post').findAll(options)
+        return res.status(200).json(posts)
     } catch (error) {
         console.log(error);
         return res.status(500).send(error.message);
     }
-}
+};
 
 async function getPostById(req, res) {
     console.log('Ruta Post a ID');
+    const { id } = req.params;
     try {
-        const { id } = req.query;
         const post = await conn.model('Post').findByPk(id);
         if (post) {
             return res.status(200).json(post);
@@ -56,8 +60,30 @@ async function getPostById(req, res) {
     }
 }
 
+const createPost = async (req, res) => {
+    const { title, description, file, userId, nameTag, fileTag } = req.body;
+
+    try {
+        if (title && description && file && userId && nameTag) {
+            const newPost = await conn.model('Post').create({ title: title, description: description, file: file, UserId: userId })
+            const [tag, _] = await conn.model('Tag').findOrCreate({
+                name: nameTag,
+                where: {
+                    name: nameTag
+                }
+            })
+            newPost.addTag(tag)
+            return res.status(200).send("el post fue creado con exito")
+        }
+        return res.status(400).json({ error: "faltan datos" })
+    } catch (e) {
+        return res.status(400).send(e.message)
+    }
+
+}
+
 module.exports = {
     getAllPost,
     getPostById,
-    getPostByName
+    createPost
 }
