@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
     },
     file: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,         // pongo provisoriamente en allownull: true
       validate: {
           len: 3 //validación de lenght mínimo
       }
