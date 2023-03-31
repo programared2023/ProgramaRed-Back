@@ -5,8 +5,14 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Comment', {
     comment: {
-      type: DataTypes.STRING,
-      allowNull: true,
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+      len: 2 //validación de lenght mínimo
+      },
+      set(value) {//SET lo guardo siempre en mayúsculas la primera letra
+          this.setDataValue('comment', value.charAt(0).toUpperCase()+ value.slice(1));
+      }
     }
   },
     {

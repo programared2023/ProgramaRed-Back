@@ -7,11 +7,10 @@ module.exports = (sequelize) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    // file: { PARA QUE ES ESTO??
-    //   type: DataTypes.ENUM('Javascript', 'Vsc', 'Phyton', 'Php', 'Postgresql'),
-    //   allowNull: false,
-    // }
+      validate: {
+        len: 2 //validación de lenght mínimo
+      }
+    }
   },
     {
       timestamps: false,
