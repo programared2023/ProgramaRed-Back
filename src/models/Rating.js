@@ -7,6 +7,10 @@ module.exports = (sequelize) => {
     vote: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      validate: {
+        min: 0,
+        max: 100
+      }
     }
   },
     {

@@ -7,20 +7,29 @@ module.exports = (sequelize) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      //     set(value) {//SET lo guardo siempre en mayúsculas
-      //     this.setDataValue('name', value.toUpperCase());
-      // }
+      validate: {
+          len: 3 //validación de lenght mínimo
+      },
+         //  set(value) {//SET lo guardo siempre en mayúsculas
+         //  this.setDataValue('title', value.charAt(0).toUpperCase() + value.slice(1).toLowerCase());
+         // }
     },
     description: {
       type: DataTypes.TEXT, //admite cadenas de texto de más de 255 characters
       allowNull: false,
-      set(value) {//SET lo guardo siempre en mayúsculas
+      validate: {
+          len: 3 //validación de lenght mínimo
+      },
+      set(value) {//SET lo guardo siempre en mayúsculas el primer caracter
         this.setDataValue('description', value.charAt(0).toUpperCase() + value.slice(1));
       }
     },
     file: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+          len: 3 //validación de lenght mínimo
+      }
     }
   },
     {
