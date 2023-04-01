@@ -19,11 +19,49 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
+const { users, posts } = require('./dumbdata.js')
+
+function createUsers() {
+  users.map(async u => {
+    let user = await conn.model('User').create({
+      username: u.username,
+      email: u.email,
+      password: u.password
+    })
+    console.log(user.toJSON());
+  })
+}
+
+function createPosts() {
+  posts.map(async p => {
+    let post = await conn.model('Post').create({
+      title: p.title,
+      description: p.description,
+      file: p.file,
+      UserId: p.userId,
+    })
+    p.tags.map(async t => {
+      const [tag, _] = await conn.model('Tag').findOrCreate({
+        name: t.name,
+        where: {
+          name: t.name
+        }
+      })
+      console.log(tag.toJSON());
+      post.addTag(tag)
+    })
+    console.log(post.toJSON());
+  })
+}
 
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(async() => {console.log('db connected')
-    server.listen(3001, () => {
+conn.sync({ force: true }).then(async () => {
+  console.log('db connected')
+  createUsers()
+  createPosts()
+
+  server.listen(3001, () => {
     console.log('server listening at 3001'); // eslint-disable-line no-console
   });
 });
