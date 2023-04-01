@@ -61,7 +61,7 @@ async function getPostById(req, res) {
 }
 
 const createPost = async (req, res) => {
-  const { title, description, file, userId, nameTag, fileTag } = req.body;
+  const { title, description, file, userId, tags } = req.body;
 
   try {
     if (title && description) { // borro provisoriamente file, userId y nameTag
@@ -73,13 +73,16 @@ const createPost = async (req, res) => {
           file: file,
           UserId: userId,
         });
-      /* const [tag, _] = await conn.model("Tag").findOrCreate({        // comento provisoriamente el nameTag
-        name: nameTag,
-        where: {
+
+      tags.map(async t => {
+        const [tag, _] = await conn.model("Tag").findOrCreate({
           name: nameTag,
-        },
-      });
-      newPost.addTag(tag); */
+          where: {
+            name: nameTag,
+          },
+        });
+        newPost.addTag(tag);
+      })
       return res.status(200).send("el post fue creado con exito");
     }
     return res.status(400).json({ error: "faltan datos" });
