@@ -1,11 +1,14 @@
-const { conn, Op, Post } = require('../db');
+const { conn, Op, Post, Tag } = require('../db');
 
 const getUserById = async (req, res) => {
     const { id } = req.params;
 
     try {
         const user = await conn.model('User').findByPk(id, {
-            include: Post
+            include: {
+                model: Post,
+                include: Tag
+            }
         })
         if (!user) {
             return res.status(400).send({ error: "El usuario no Existe" })
@@ -19,7 +22,12 @@ const getUserById = async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         const { username, password } = req.query
-        let options = {}
+        let options = {
+            include: {
+                model: Post,
+                include: Tag
+            }
+        }
         let and = []
         if (username) {
             and.push({
