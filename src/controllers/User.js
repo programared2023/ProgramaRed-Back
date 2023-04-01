@@ -21,39 +21,24 @@ const getUserById = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const { username, password } = req.query
+        const { username } = req.query
         let options = {
             include: {
                 model: Post,
                 include: Tag
             }
         }
-        let and = []
         if (username) {
-            and.push({
-                username: username
-            })
-        }
-        if (password) {
-            and.push({
-                password: password
-            })
-        }
-        if (and.length) {
             options = {
                 ...options,
                 where: {
-                    [Op.and]: and
+                    username: {
+                        [Op.like]: `%${username.toLowerCase()}%`
+                    }
                 }
             }
-            const user = await conn.model('User').findOne(options)
-            if (user) {
-                return res.status(200).json(user)
-            } else {
-                return res.status(404).send('Credenciales invalidas')
-            }
         }
-        const users = await conn.model('User').findAll()
+        const users = await conn.model('User').findAll(options)
         return res.status(200).json(users)
     } catch (error) {
         return res.status(400).send(error.message)

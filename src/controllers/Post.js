@@ -5,34 +5,34 @@ async function getAllPost(req, res) {
   let options = {
     include: [User, Tag],
   };
-  let AND = [];
+  let OR = [];
   try {
     if (title) {
-      AND.push({
+      OR.push({
         title: {
           [Op.like]: `%${title[0].toUpperCase() + title.slice(1)}%`,
         },
       });
     }
     if (username) {
-      AND.push({
+      OR.push({
         "$User.username$": {
           [Op.like]: `%${username}%`,
         },
       });
     }
     if (tag) {
-      AND.push({
+      OR.push({
         "$Tags.name$": {
-          [Op.like]: `%${tag[0].toUpperCase() + tag.slice(1)}%`,
+          [Op.like]: `%${tag.toLowerCase()}%`,
         },
       });
     }
-    if (AND.length) {
+    if (OR.length) {
       options = {
         ...options,
         where: {
-          [Op.and]: AND,
+          [Op.or]: OR,
         },
       };
     }
