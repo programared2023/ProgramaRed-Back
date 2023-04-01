@@ -76,9 +76,9 @@ const createPost = async (req, res) => {
 
       tags.map(async t => {
         const [tag, _] = await conn.model("Tag").findOrCreate({
-          name: nameTag,
+          name: t,
           where: {
-            name: nameTag,
+            name: t,
           },
         });
         newPost.addTag(tag);
