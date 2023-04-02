@@ -48,7 +48,10 @@ async function getPostById(req, res) {
   console.log("Ruta Post a ID");
   const { id } = req.params;
   try {
-    const post = await conn.model("Post").findByPk(id);
+    const post = await conn.model("Post").findOne({
+      where: {id: id},
+      include: User,
+    });
     if (post) {
       return res.status(200).json(post);
     } else {
