@@ -1,9 +1,14 @@
 const { conn, Post, User, Tag, Op } = require("../db");
 
 async function getAllPost(req, res) {
-  const { title, username, tag } = req.query;
+  const { title, username, tag, titleOrder, dateOrder } = req.query;
+
   let options = {
     include: [User, Tag],
+    order: [
+      ['title', titleOrder || 'ASC'],
+      ['createdAt', dateOrder || 'DESC']
+    ]
   };
   let OR = [];
   try {
@@ -49,7 +54,7 @@ async function getPostById(req, res) {
   const { id } = req.params;
   try {
     const post = await conn.model("Post").findOne({
-      where: {id: id},
+      where: { id: id },
       include: [User, Tag]
     });
     if (post) {
