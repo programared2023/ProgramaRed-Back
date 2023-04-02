@@ -9,6 +9,9 @@ module.exports = (sequelize) => {
       allowNull: false,
       validate: {
         len: 2 //validación de lenght mínimo
+      },
+      set(value) {//SET lo guardo siempre en minúsculas
+        this.setDataValue('name', value.toLowerCase());
       }
     }
   },

@@ -38,7 +38,7 @@ function createPosts() {
       title: p.title,
       description: p.description,
       file: p.file,
-      UserId: p.userId,
+      UserId: p.userId
     })
     p.tags.map(async t => {
       const [tag, _] = await conn.model('Tag').findOrCreate({
