@@ -50,7 +50,7 @@ async function getPostById(req, res) {
   try {
     const post = await conn.model("Post").findOne({
       where: {id: id},
-      include: User,
+      include: [User, Tag]
     });
     if (post) {
       return res.status(200).json(post);
