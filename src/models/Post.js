@@ -8,17 +8,17 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-          len: 3 //validación de lenght mínimo
+        len: 3 //validación de lenght mínimo
       },
-         //  set(value) {//SET lo guardo siempre en mayúsculas
-         //  this.setDataValue('title', value.charAt(0).toUpperCase() + value.slice(1).toLowerCase());
-         // }
+      //  set(value) {//SET lo guardo siempre en mayúsculas
+      //  this.setDataValue('title', value.charAt(0).toUpperCase() + value.slice(1).toLowerCase());
+      // }
     },
     description: {
       type: DataTypes.TEXT, //admite cadenas de texto de más de 255 characters
       allowNull: false,
       validate: {
-          len: 3 //validación de lenght mínimo
+        len: 3 //validación de lenght mínimo
       },
       set(value) {//SET lo guardo siempre en mayúsculas el primer caracter
         this.setDataValue('description', value.charAt(0).toUpperCase() + value.slice(1));
@@ -28,12 +28,12 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true,         // pongo provisoriamente en allownull: true
       validate: {
-          len: 3 //validación de lenght mínimo
+        len: 3 //validación de lenght mínimo
       }
     }
   },
     {
-      timestamps: false,
+      timestamps: true,
       createdAt: true,
       updatedAt: false
     });
