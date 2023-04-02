@@ -2,13 +2,16 @@ const { conn, Post, User, Tag, Op } = require("../db");
 
 async function getAllPost(req, res) {
   const { title, username, tag, titleOrder, dateOrder } = req.query;
+  let order = []
+  if (titleOrder) {
+    order = [['title', titleOrder]]
+  } else if (dateOrder) {
+    order = [['createdAt', dateOrder]]
+  }
 
   let options = {
     include: [User, Tag],
-    order: [
-      ['title', titleOrder || 'ASC'],
-      ['createdAt', dateOrder || 'DESC']
-    ]
+    order: order
   };
   let OR = [];
   try {
@@ -79,7 +82,7 @@ const createPost = async (req, res) => {
           title: title,
           description: description,
           file: file,
-          UserId: userId,
+          UserId: userId
         });
 
       tags.map(async t => {
