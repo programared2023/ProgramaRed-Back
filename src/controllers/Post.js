@@ -1,8 +1,10 @@
 const { conn, Post, User, Tag, Op } = require("../db");
 
 async function getAllPost(req, res) {
+  // const { title, username, tag, titleOrder, dateOrder } = req.query;
   const { search, titleOrder, dateOrder } = req.query;
   let order = []
+  // let OR = []
   if (titleOrder) {
     order = [['title', titleOrder]]
   } else if (dateOrder) {
@@ -14,6 +16,38 @@ async function getAllPost(req, res) {
     order: order
   };
   try {
+    //  if (title) {
+    //   OR.push({
+    //     title: {
+    //       [Op.like]: `%${title[0].toUpperCase() + title.slice(1)}%`,
+    //     },
+    //   });
+    // }
+    // if (username) {
+    //   OR.push({
+    //     "$User.username$": {
+    //       [Op.like]: `%${username}%`,
+    //     },
+    //   });
+    // }
+    // if (tag) {
+    //   OR.push({
+    //     "$Tags.name$": {
+    //       [Op.like]: `%${tag.toLowerCase()}%`,
+    //     },
+    //   });
+    // }
+
+    // if (OR.length) {
+    //   options = {
+    //     ...options,
+    //     where: {
+    //       [Op.or]: OR
+    //     }
+    //   }
+    // }
+
+
     if (search) {
       options = {
         ...options,
