@@ -30,11 +30,15 @@ module.exports = (sequelize) => {
       validate: {
         len: 3 //validación de lenght mínimo
       }
+    },
+    publishDate: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
     }
   },
     {
-      timestamps: true,
-      createdAt: true,
+      timestamps: false,
+      createdAt: false,
       updatedAt: false
     });
 };

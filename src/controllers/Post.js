@@ -1,46 +1,28 @@
 const { conn, Post, User, Tag, Op } = require("../db");
 
 async function getAllPost(req, res) {
-  const { title, username, tag, titleOrder, dateOrder } = req.query;
+  const { search, titleOrder, dateOrder } = req.query;
   let order = []
   if (titleOrder) {
     order = [['title', titleOrder]]
   } else if (dateOrder) {
-    order = [['createdAt', dateOrder]]
+    order = [['publishDate', dateOrder]]
   }
 
   let options = {
     include: [User, Tag],
     order: order
   };
-  let OR = [];
   try {
-    if (title) {
-      OR.push({
-        title: {
-          [Op.like]: `%${title[0].toUpperCase() + title.slice(1)}%`,
-        },
-      });
-    }
-    if (username) {
-      OR.push({
-        "$User.username$": {
-          [Op.like]: `%${username}%`,
-        },
-      });
-    }
-    if (tag) {
-      OR.push({
-        "$Tags.name$": {
-          [Op.like]: `%${tag.toLowerCase()}%`,
-        },
-      });
-    }
-    if (OR.length) {
+    if (search) {
       options = {
         ...options,
         where: {
-          [Op.or]: OR,
+          [Op.or]: [
+            { title: { [Op.iLike]: `%${search}%`, } },
+            { "$User.username$": { [Op.like]: `%${search}%` } },
+            { "$Tags.name$": { [Op.like]: `%${search}%` } }
+          ],
         },
       };
     }
@@ -82,7 +64,8 @@ const createPost = async (req, res) => {
           title: title,
           description: description,
           file: file,
-          UserId: userId
+          UserId: userId,
+          publishDate: new Date()
         });
 
       tags.map(async t => {
