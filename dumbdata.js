@@ -40,6 +40,19 @@ const tags = [
   { name: "MongoDB" },
 ];
 
+const randomDates = [
+  '2023-04-01',
+  '2023-04-02',
+  '2023-04-03',
+  '2023-04-04',
+  '2023-04-05',
+  '2023-04-06',
+  '2023-04-07',
+  '2023-04-08',
+  '2023-04-09',
+  '2023-04-10',
+]
+
 const posts = [
   {
     userId: 1,
@@ -352,4 +365,5 @@ const posts = [
 module.exports = {
   users,
   posts,
+  randomDates
 };

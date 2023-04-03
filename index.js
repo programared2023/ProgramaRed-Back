@@ -19,7 +19,7 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const { users, posts } = require('./dumbdata.js')
+const { users, posts, randomDates } = require('./dumbdata.js')
 
 function createUsers() {
   users.map(async u => {
@@ -34,12 +34,15 @@ function createUsers() {
 
 function createPosts() {
   posts.map(async p => {
+    let rand = new Promise((resolve) => resolve(Math.floor(Math.random() * 10)))
     let post = await conn.model('Post').create({
       title: p.title,
       description: p.description,
       file: p.file,
-      UserId: p.userId
+      UserId: p.userId,
+      publishDate: new Date(randomDates[await rand])
     })
+
     p.tags.map(async t => {
       const [tag, _] = await conn.model('Tag').findOrCreate({
         name: t.name,
