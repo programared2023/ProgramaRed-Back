@@ -1,7 +1,60 @@
 const { conn, Post, User, Tag, Op } = require("../db");
 
+async function getAllPost2(req, res) {
+  const { title, username, tag, titleOrder, dateOrder } = req.query;
+  let order = []
+  let OR = []
+  if (titleOrder) {
+    order = [['title', titleOrder]]
+  } else if (dateOrder) {
+    order = [['publishDate', dateOrder]]
+  }
+
+  let options = {
+    include: [User, Tag],
+    order: order
+  };
+  try {
+    if (title) {
+      OR.push({
+        title: {
+          [Op.iLike]: `%${title}%`,
+        },
+      });
+    }
+    if (username) {
+      OR.push({
+        "$User.username$": {
+          [Op.like]: `%${username}%`,
+        },
+      });
+    }
+    if (tag) {
+      OR.push({
+        "$Tags.name$": {
+          [Op.like]: `%${tag.toLowerCase()}%`,
+        },
+      });
+    }
+
+    if (OR.length) {
+      options = {
+        ...options,
+        where: {
+          [Op.or]: OR
+        }
+      }
+    }
+
+    const posts = await conn.model("Post").findAll(options);
+    return res.status(200).json(posts);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message);
+  }
+}
+
 async function getAllPost(req, res) {
-  // const { title, username, tag, titleOrder, dateOrder } = req.query;
   const { search, titleOrder, dateOrder } = req.query;
   let order = []
   // let OR = []
@@ -16,38 +69,6 @@ async function getAllPost(req, res) {
     order: order
   };
   try {
-    //  if (title) {
-    //   OR.push({
-    //     title: {
-    //       [Op.like]: `%${title[0].toUpperCase() + title.slice(1)}%`,
-    //     },
-    //   });
-    // }
-    // if (username) {
-    //   OR.push({
-    //     "$User.username$": {
-    //       [Op.like]: `%${username}%`,
-    //     },
-    //   });
-    // }
-    // if (tag) {
-    //   OR.push({
-    //     "$Tags.name$": {
-    //       [Op.like]: `%${tag.toLowerCase()}%`,
-    //     },
-    //   });
-    // }
-
-    // if (OR.length) {
-    //   options = {
-    //     ...options,
-    //     where: {
-    //       [Op.or]: OR
-    //     }
-    //   }
-    // }
-
-
     if (search) {
       options = {
         ...options,
@@ -123,4 +144,5 @@ module.exports = {
   getAllPost,
   getPostById,
   createPost,
+  getAllPost2
 };
