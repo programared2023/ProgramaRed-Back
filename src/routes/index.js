@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getPostById, getAllPost, createPost } = require('../controllers/Post');
+const { getPostById, getAllPost, createPost, getAllPost2 } = require('../controllers/Post');
 const getAllTags = require('../controllers/Tags');
 const { getUserById, getAllUsers, createUser } = require('../controllers/User');
 
@@ -12,10 +12,9 @@ router.get("/user/:id", getUserById);
 
 router.post('/post', createPost);
 router.get('/post', getAllPost)
+router.get('/posts', getAllPost2)
 router.get('/post/:id', getPostById)
 
 router.get('/tags', getAllTags)
-
-
 
 module.exports = router;
