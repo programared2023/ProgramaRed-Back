@@ -19,8 +19,8 @@ const createSubscription = (req, res) => {
             },
             auto_return: "approved",
             back_urls: {
-                success: `${process.env.FRONT_URL}/home?success=1`,
-                failure: `${process.env.FRONT_URL}/home?error=1`,
+                success: `${process.env.FRONT_URL}/premium?success=1`,
+                failure: `${process.env.FRONT_URL}/premium?error=1`,
                 pending: process.env.FRONT_URL
             }
         }).then(prefResponse => {
