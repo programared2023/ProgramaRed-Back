@@ -24,12 +24,9 @@ module.exports = (sequelize) => {
         this.setDataValue('description', value.charAt(0).toUpperCase() + value.slice(1));
       }
     },
-    file: {
-      type: DataTypes.STRING,
-      allowNull: true,         // pongo provisoriamente en allownull: true
-      validate: {
-        len: 3 //validación de lenght mínimo
-      }
+    files: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
     },
     publishDate: {
       type: DataTypes.DATEONLY,
