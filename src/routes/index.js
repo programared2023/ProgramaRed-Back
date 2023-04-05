@@ -6,7 +6,6 @@ const { createSubscription } = require('../controllers/Subscription');
 
 const router = Router();
 
-
 router.post('/user', createUser);
 router.get('/user', getAllUsers);
 router.get("/user/:id", getUserById);
