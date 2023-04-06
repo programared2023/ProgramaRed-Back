@@ -1,3 +1,4 @@
+const { conn } = require('../db');
 const mercadopago = require('../lib/mercadoPago')
 
 const createSubscription = (req, res) => {
@@ -40,6 +41,40 @@ const createSubscription = (req, res) => {
     }
 }
 
+const createPayment = async (req, res) => {
+    try {
+        const { paymentId, productTitle, price, status, userId } = req.body
+
+        if (paymentId && productTitle && price && status && userId) {
+            const payment = await conn.model('PaymentInfo').create({
+                id: paymentId,
+                productTitle: productTitle,
+                price: price,
+                status: status,
+                UserId: userId
+            })
+            if (payment) {
+                const updatedRows = await conn.model('User').update({
+                    isPremium: true,
+                }, {
+                    where: {
+                        id: userId
+                    }
+                })
+                console.log("Updated rows:", updatedRows);
+                console.log(payment.toJSON());
+                return res.status(200).send('Pago realizado exitosamente')
+            }
+            return res.status(400).send('No se pudo registrar el pago')
+        }
+        return res.status(400).send("Faltan datos")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
-    createSubscription
+    createSubscription,
+    createPayment
 }

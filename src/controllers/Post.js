@@ -109,16 +109,16 @@ async function getPostById(req, res) {
 }
 
 const createPost = async (req, res) => {
-  const { title, description, file, userId, tags } = req.body;
+  const { title, description, files, userId, tags } = req.body;
 
   try {
-    if (title && description) { // borro provisoriamente file, userId y nameTag
+    if (title && description && files && tags && userId) {
       const newPost = await conn
         .model("Post")
         .create({
           title: title,
           description: description,
-          file: file,
+          files: files,
           UserId: userId,
           publishDate: new Date()
         });
@@ -132,9 +132,9 @@ const createPost = async (req, res) => {
         });
         newPost.addTag(tag);
       })
-      return res.status(200).send("el post fue creado con exito");
+      return res.status(200).send("El post fue creado con exito");
     }
-    return res.status(400).json({ error: "faltan datos" });
+    return res.status(400).json({ error: "Faltan datos" });
   } catch (e) {
     return res.status(400).send(e.message);
   }

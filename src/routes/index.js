@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { getPostById, getAllPost, createPost, getAllPost2 } = require('../controllers/Post');
 const getAllTags = require('../controllers/Tags');
 const { getUserById, getAllUsers, createUser } = require('../controllers/User');
-const { createSubscription } = require('../controllers/Subscription');
+const { createSubscription, createPayment } = require('../controllers/Subscription');
 
 const router = Router();
 
@@ -18,4 +18,6 @@ router.get('/post/:id', getPostById)
 router.get('/tags', getAllTags)
 
 router.post('/subcriptions', createSubscription)
+router.post('/payments', createPayment)
+
 module.exports = router;

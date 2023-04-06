@@ -32,14 +32,11 @@ module.exports = (sequelize) => {
         len: 11, //length mínimo 11
         is: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ //Debe ser un email con 11 caracteres mínimo,@ y .com
       }
+    },
+    isPremium: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
     }
-    // birthdate: {
-    //   type: DataTypes.DATEONLY,
-    //   allowNull: false,
-    //   validate: {
-    //     isDate: true,
-    //   }
-    // },
   },
     {
       timestamps: false,
