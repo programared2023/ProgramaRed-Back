@@ -1,4 +1,4 @@
-const { conn, Post, User, Tag, Op } = require("../db");
+const { conn, Post, User, Tag, Favorite, Comment, Op } = require("../db");
 
 async function getAllPost2(req, res) {
   const { title, username, tag, titleOrder, dateOrder } = req.query;
@@ -95,7 +95,10 @@ async function getPostById(req, res) {
   try {
     const post = await conn.model("Post").findOne({
       where: { id: id },
-      include: [User, Tag]
+      include: [User, Tag, Favorite, {
+        model: Comment,
+        include: User
+      }]
     });
     if (post) {
       return res.status(200).json(post);

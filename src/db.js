@@ -42,14 +42,16 @@ Tag.belongsToMany(Post, { through: 'PostTag' });
 User.hasMany(Post);
 Post.belongsTo(User);
 
-User.hasMany(Favorite);
-Favorite.belongsTo(User);
+Post.hasMany(Favorite);
+Favorite.belongsTo(Post);
 
 Post.hasMany(Rating);
 Rating.belongsTo(Post);
+Rating.belongsTo(User)
 
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
+Comment.belongsTo(User)
 
 User.hasOne(PaymentInfo)
 PaymentInfo.belongsTo(User)
