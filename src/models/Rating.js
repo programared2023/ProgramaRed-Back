@@ -6,10 +6,10 @@ module.exports = (sequelize) => {
   sequelize.define('Rating', {
     vote: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       validate: {
-        min: 0,
-        max: 100
+        min: 1,
+        max: 10
       }
     }
   },

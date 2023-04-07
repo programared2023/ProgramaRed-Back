@@ -8,15 +8,15 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
-      len: 2 //validación de lenght mínimo
+        len: 2 //validación de lenght mínimo
       },
       set(value) {//SET lo guardo siempre en mayúsculas la primera letra
-          this.setDataValue('comment', value.charAt(0).toUpperCase()+ value.slice(1));
+        this.setDataValue('comment', value.charAt(0).toUpperCase() + value.slice(1));
       }
     }
   },
     {
-      timestamps: false,
+      timestamps: true,
       createdAt: true,
       updatedAt: false
     });

@@ -4,7 +4,7 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Favorite', {
-    idPost: {
+    idUser: {
       type: DataTypes.INTEGER,
       allowNull: false,
     }
