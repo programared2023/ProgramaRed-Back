@@ -3,7 +3,7 @@ const { getPostById, getAllPost, createPost, getAllPost2 } = require('../control
 const getAllTags = require('../controllers/Tags');
 const { getUserById, getAllUsers, createUser } = require('../controllers/User');
 const { createSubscription, createPayment } = require('../controllers/Subscription');
-const { saveFavorite } = require('../controllers/Favorite');
+const { saveFavorite, getFavoritesByUser } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
 
 const router = Router();
@@ -23,6 +23,7 @@ router.post('/subcriptions', createSubscription)
 router.post('/payments', createPayment)
 
 router.post('/favorites', saveFavorite)
+router.get('/favorites/:userId', getFavoritesByUser)
 router.post('/comments', saveComment)
 
 module.exports = router;
