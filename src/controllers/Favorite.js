@@ -1,4 +1,4 @@
-const { conn } = require('../db')
+const { conn, Op } = require('../db')
 
 const saveFavorite = async (req, res) => {
     try {
@@ -22,7 +22,10 @@ const getFavoritesByUser = async (req, res) => {
     try {
         const { userId } = req.params
         const favorites = await conn.model('Favorite').findAll({
-            include: conn.model('Post'),
+            include: {
+                model: conn.model('Post'),
+                include: conn.model('User')
+            },
             where: {
                 idUser: userId
             }
@@ -34,7 +37,36 @@ const getFavoritesByUser = async (req, res) => {
     }
 }
 
+const deleteFavorite = async (req, res) => {
+    try {
+        const { idUser, idPost } = req.query
+        const favorite = await conn.model('Favorite').findOne({
+            where: {
+                [Op.and]: [
+                    { PostId: idPost },
+                    { idUser: idUser }
+                ]
+            }
+        })
+        const post = await conn.model('Post').findByPk(idPost)
+        if (favorite && post) {
+            post.removeFavorite(favorite)
+            await conn.model('Favorite').destroy({
+                cascade: true,
+                where: {
+                    [Op.and]: [{ PostId: idPost }, { idUser: idUser }]
+                }
+            })
+            return res.status(200).send('Post quitado de favoritos')
+        }
+        return res.status(400).send('No se pudo eliminar de favoritos')
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
 module.exports = {
     saveFavorite,
-    getFavoritesByUser
+    getFavoritesByUser,
+    deleteFavorite
 }
