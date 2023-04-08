@@ -36,6 +36,18 @@ module.exports = (sequelize) => {
     isPremium: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    },
+    profileImage: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   },
     {

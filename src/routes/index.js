@@ -1,7 +1,7 @@
 const { Router } = require('express');
-const { getPostById, getAllPost, createPost, getAllPost2, updatePost } = require('../controllers/Post');
+const { getPostById, getAllPost, createPost, getAllPost2, updatePost, deletePost } = require('../controllers/Post');
 const getAllTags = require('../controllers/Tags');
-const { getUserById, getAllUsers, createUser } = require('../controllers/User');
+const { getUserById, getAllUsers, createUser, deleteUser, updateUser } = require('../controllers/User');
 const { createSubscription, createPayment } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
@@ -11,12 +11,15 @@ const router = Router();
 router.post('/user', createUser);
 router.get('/user', getAllUsers);
 router.get("/user/:id", getUserById);
+router.delete('/user/:id', deleteUser)
+router.put('/user/:id', updateUser)
 
 router.post('/post', createPost);
 router.get('/post', getAllPost)
 router.get('/posts', getAllPost2)
 router.get('/post/:id', getPostById)
 router.put('/post/:id', updatePost)
+router.delete('/post/:id', deletePost)
 
 router.get('/tags', getAllTags)
 
