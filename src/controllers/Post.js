@@ -143,9 +143,54 @@ const createPost = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { title, description, tags, files, userId } = req.body
+
+    const [updated] = await conn.model('Post').update({
+      title: title,
+      description: description,
+      files: files,
+      tags: tags,
+      UserId: userId
+    }, {
+      where: {
+        id: id
+      }
+    })
+    console.log(`${updated} post/s actualizados`);
+    const post = await conn.model('Post').findByPk(id)
+
+    if (post) {
+      const countDestroyed = await conn.model('PostTag').destroy({
+        where: {
+          PostId: post.id
+        }
+      })
+      console.log(`${countDestroyed} relations destroyed`);
+      tags.map(async t => {
+        const [tag, _] = await conn.model("Tag").findOrCreate({
+          name: t,
+          where: {
+            name: t,
+          },
+        });
+        post.addTag(tag)
+      })
+      return res.status(200).send("Post actualizado")
+    }
+    return res.status(400).send("Error al actualizar el post")
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   getAllPost,
   getPostById,
   createPost,
-  getAllPost2
+  getAllPost2,
+  updatePost
 };
