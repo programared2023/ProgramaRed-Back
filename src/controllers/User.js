@@ -4,16 +4,19 @@ const getUserById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const user = await conn.model('User').findByPk(id, {
+        const user = await conn.model('User').findOne({
             include: {
                 model: Post,
                 include: Tag
+            },
+            where: {
+                [Op.and]: [{ id: id }, { isActive: true }]
             }
         })
         if (!user) {
-            return res.status(400).send({ error: "El usuario no Existe" })
+            return res.status(400).send("El usuario no existe")
         }
-        return res.status(200).json(user)
+        return res.status(200).json(user.toJSON())
     } catch (error) {
         return res.status(400).send(error.message)
     }
@@ -32,9 +35,14 @@ const getAllUsers = async (req, res) => {
             options = {
                 ...options,
                 where: {
-                    username: {
-                        [Op.like]: `%${username.toLowerCase()}%`
-                    }
+                    [Op.and]: [
+                        {
+                            username: {
+                                [Op.like]: `%${username.toLowerCase()}%`
+                            }
+                        },
+                        { isActive: true }
+                    ]
                 }
             }
         }
@@ -60,8 +68,46 @@ const createUser = async (req, res) => {
     }
 
 }
+
+const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const [deleted] = await conn.model('User').update({
+            isActive: false
+        }, {
+            where: {
+                id: id
+            }
+        })
+        console.log(`${deleted} user marked as inactive`);
+        return res.status(200).send("Usuario eliminado")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
+const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { profileImage, description } = req.body
+        const [updated] = await conn.model('User').update({
+            profileImage: profileImage,
+            description: description
+        }, { where: { id: id } })
+
+        console.log(`${updated} updated user`);
+        return res.status(200).send("Usuario actualizado")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     getUserById,
     getAllUsers,
-    createUser
+    createUser,
+    deleteUser,
+    updateUser
 }

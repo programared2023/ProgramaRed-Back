@@ -31,6 +31,10 @@ module.exports = (sequelize) => {
     publishDate: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
     }
   },
     {

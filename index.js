@@ -23,12 +23,12 @@ const { users, posts, randomDates } = require('./dumbdata.js')
 
 function createUsers() {
   users.map(async u => {
-    let user = await conn.model('User').create({
+    await conn.model('User').create({
       username: u.username,
       email: u.email,
       password: u.password
     })
-    console.log(user.toJSON());
+    // console.log(user.toJSON());
   })
 }
 
@@ -50,10 +50,10 @@ function createPosts() {
           name: t.name
         }
       })
-      console.log(tag.toJSON());
+      // console.log(tag.toJSON());
       post.addTag(tag)
     })
-    console.log(post.toJSON());
+    // console.log(post.toJSON());
   })
 }
 

@@ -12,6 +12,11 @@ async function getAllPost2(req, res) {
 
   let options = {
     include: [User, Tag],
+    where: {
+      [Op.and]: {
+        isActive: true
+      }
+    },
     order: order
   };
   try {
@@ -66,6 +71,11 @@ async function getAllPost(req, res) {
 
   let options = {
     include: [User, Tag],
+    where: {
+      [Op.and]: {
+        isActive: true
+      }
+    },
     order: order
   };
   try {
@@ -94,7 +104,9 @@ async function getPostById(req, res) {
   const { id } = req.params;
   try {
     const post = await conn.model("Post").findOne({
-      where: { id: id },
+      where: {
+        [Op.and]: [{ id: id }, { isActive: true }]
+      },
       include: [User, Tag, Favorite, {
         model: Comment,
         include: User
@@ -187,10 +199,29 @@ const updatePost = async (req, res) => {
   }
 }
 
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params
+    const [deleted] = await conn.model('Post').update({
+      isActive: false
+    }, {
+      where: {
+        id: id
+      }
+    })
+    console.log(`${deleted} post marked as inactive`);
+    return res.status(200).send("Post eliminado")
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   getAllPost,
   getPostById,
   createPost,
   getAllPost2,
-  updatePost
+  updatePost,
+  deletePost
 };
