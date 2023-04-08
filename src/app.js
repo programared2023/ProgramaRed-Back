@@ -6,7 +6,7 @@ const routes = require('./routes/index.js');
 const cors =require ('cors');
 
 const corsOrigin ={
-    origin:'http://localhost:3000', //or whatever port your frontend is using
+    origin:'*', //or whatever port your frontend is using
     credentials:true,            
     optionSuccessStatus:200
 }
