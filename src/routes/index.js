@@ -5,7 +5,7 @@ const { getUserByEmail, getUserById, getAllUsers, createUser, deleteUser, update
 const { createSubscription, createPayment } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
-const axios = require("axios"); //temporal
+//const axios = require("axios"); //temporal
 const { conn} = require('../db'); //temporal
 
 const router = Router();
