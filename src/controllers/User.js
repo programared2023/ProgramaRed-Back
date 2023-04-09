@@ -1,4 +1,34 @@
 const { conn, Op, Post, Tag } = require('../db');
+const axios = require("axios"); 
+
+const createUserAuth0 = async (req, res) => {
+  const accessToken =req.headers.authorization.split(' ')[1]
+    try{
+        const response = await axios.get('https://dev-ld1rfpxkhqa8gz6z.us.auth0.com/userinfo',{
+                headers:{
+                    authorization: `Bearer ${accessToken}`
+                }
+            })
+        const userinfo = response.data
+        const { nickname, email } = userinfo;
+        //creando el usuario de auth0 en la base en caso no exista
+        if (nickname && email) {
+            const [user, created] = await conn.model('User').findOrCreate({ 
+                  where: { email: email },
+                  defaults:{
+                  username: nickname,  
+                  email: email
+              }
+            })
+            return res.status(200).send("el usuario fue creado con exito")
+        }
+        return res.status(400).json({ error: "faltan datos" })
+    }catch(e){
+    res.json({
+      error: e.message
+    })
+  }
+}
 
 const getUserByEmail = async (req, res) => {//ruta para obtener el id por email
     const { email } = req.params;
@@ -128,6 +158,7 @@ const updateUser = async (req, res) => {
 }
 
 module.exports = {
+    createUserAuth0,
     getUserByEmail,
     getUserById,
     getAllUsers,

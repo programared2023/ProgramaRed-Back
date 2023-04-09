@@ -1,12 +1,10 @@
 const { Router } = require('express');
 const { getPostById, getAllPost, createPost, getAllPost2, updatePost, deletePost } = require('../controllers/Post');
 const getAllTags = require('../controllers/Tags');
-const { getUserByEmail, getUserById, getAllUsers, createUser, deleteUser, updateUser } = require('../controllers/User');
+const { createUserAuth0, getUserByEmail, getUserById, getAllUsers, createUser, deleteUser, updateUser } = require('../controllers/User');
 const { createSubscription, createPayment } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
-const axios = require("axios"); //temporal
-const { conn} = require('../db'); //temporal
 
 const router = Router();
 
@@ -16,44 +14,7 @@ router.get("/user/:id", getUserById);
 router.get('/user/email/:email', getUserByEmail);
 router.delete('/user/:id', deleteUser)
 router.put('/user/:id', updateUser)
-
-
-router.get('/usercreate', async function(req, res) {
-  const accessToken =req.headers.authorization.split(' ')[1]
-   
-  try {
-    const response = await axios.get('https://dev-ld1rfpxkhqa8gz6z.us.auth0.com/userinfo',{
-            headers:{
-                authorization: `Bearer ${accessToken}`
-            }
-        })
-    const userinfo = response.data
-    const { nickname, email } = userinfo;
-    console.log(nickname)
-    console.log(email)
-    //creando el usuario manualmente en la base
-    if (nickname && email) {
-            const [user, created] = await conn.model('User').findOrCreate({ 
-              where: { email: email },
-              defaults:{
-              username: nickname,  
-              email: email
-              }
-            })
-            console.log(user);
-            console.log(created); 
-            return res.status(200).send("el usuario fue creado con exito")
-        }
-        return res.status(400).json({ error: "faltan datos" })
-
-  }catch(e){
-    res.json({
-      error: e.message
-    })
-  }
-  
-});
-
+router.get('/usercreate', createUserAuth0)
 
 router.post('/post', createPost);
 router.get('/post', getAllPost)
