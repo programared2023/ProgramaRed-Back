@@ -1,5 +1,28 @@
 const { conn, Op, Post, Tag } = require('../db');
 
+const getUserByEmail = async (req, res) => {//ruta para obtener el id por email
+    const { email } = req.params;
+    try {
+        const user = await conn.model('User').findAll( {
+            include: {
+                model: Post,
+                include: Tag
+            },
+            where: {
+                    email:{
+                        [Op.like]: email
+                        }
+                    }
+        })
+        if (!user) {
+            return res.status(400).send({ error: "El usuario no Existe" })
+        }
+        return res.status(200).json(user)
+    } catch (error) {
+        return res.status(400).send(error.message)
+    }
+}
+
 const getUserById = async (req, res) => {
     const { id } = req.params;
 
@@ -105,6 +128,7 @@ const updateUser = async (req, res) => {
 }
 
 module.exports = {
+    getUserByEmail,
     getUserById,
     getAllUsers,
     createUser,
