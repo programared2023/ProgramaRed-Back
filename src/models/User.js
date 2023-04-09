@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true, //necesario para poder crear usuarios con autenticación de terceros
       validate: {
         len: 8, //length mínimo 8
         is: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+=[\]{}|\\,.?:\-<>\/~`]{8,}$/ //Tu contraseña debe incluír al menos una mayúscula y al menos un número
