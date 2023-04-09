@@ -54,6 +54,7 @@ router.put('/user/:id', updateUser)
   
 // });
 
+
 router.post('/post', createPost);
 router.get('/post', getAllPost)
 router.get('/posts', getAllPost2)
