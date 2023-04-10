@@ -39,7 +39,7 @@ const getFavoritesByUser = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
     try {
-        const { idUser, idPost } = req.query
+        const { idUser, idPost } = req.body
         const favorite = await conn.model('Favorite').findOne({
             where: {
                 [Op.and]: [
