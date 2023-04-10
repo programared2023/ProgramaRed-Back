@@ -60,7 +60,7 @@ function createPosts() {
 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(async () => {
+conn.sync({ force: false }).then(async () => {
   console.log('db connected')
   createUsers()
   createPosts()
