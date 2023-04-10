@@ -39,7 +39,7 @@ const getFavoritesByUser = async (req, res) => {
 
 const deleteFavorite = async (req, res) => {
     try {
-        const { idUser, idPost } = req.body
+        const { idUser, idPost } = req.query // Lo vuelvo a poner como estaba porque el metodo DELETE no recibe parametros por body, por lo que si cambias la peticion a POST te va a generar conflicto con la de guardar favorito.
         const favorite = await conn.model('Favorite').findOne({
             where: {
                 [Op.and]: [
