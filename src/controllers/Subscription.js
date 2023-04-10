@@ -23,9 +23,9 @@ const createSubscription = (req, res) => {
             },
             auto_return: "approved",
             back_urls: {
-                success: `https://programared-front-production.up.railway.app/home`,
-                failure: `https://programared-front-production.up.railway.app/home`,
-                pending: `https://programared-front-production.up.railway.app/home`
+                success: `${process.env.URL_FRONT}/home`,
+                failure: `${process.env.URL_FRONT}/home`,
+                pending: `${process.env.URL_FRONT}/home`
             }
         }).then(prefResponse => {
             console.log(prefResponse.body);
