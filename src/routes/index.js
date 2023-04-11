@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { getPostById, getAllPost, createPost, getAllPost2, updatePost, deletePost } = require('../controllers/Post');
 const getAllTags = require('../controllers/Tags');
-const { createUserAuth0, getUserByEmail, getUserById, getAllUsers, createUser, deleteUser, updateUser } = require('../controllers/User');
+const { createUserAuth0, getUserByUsername, getUserById, getAllUsers, createUser, deleteUser, updateUser } = require('../controllers/User');
 const { createSubscription, createPayment } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
@@ -11,7 +11,7 @@ const router = Router();
 router.post('/user', createUser);
 router.get('/user', getAllUsers);
 router.get("/user/:id", getUserById);
-router.get('/user/email/:email', getUserByEmail);
+router.get('/user/username/:username', getUserByUsername);
 router.delete('/user/:id', deleteUser)
 router.put('/user/:id', updateUser)
 router.get('/usercreate', createUserAuth0)
