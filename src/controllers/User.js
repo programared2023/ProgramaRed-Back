@@ -4,20 +4,27 @@ const axios = require("axios");
 const createUserAuth0 = async (req, res) => {
   const accessToken =req.headers.authorization.split(' ')[1]
     try{
+        console.log(accessToken)
         const response = await axios.get('https://dev-ld1rfpxkhqa8gz6z.us.auth0.com/userinfo',{
                 headers:{
                     authorization: `Bearer ${accessToken}`
                 }
             })
         const userinfo = response.data
-        const { nickname, email } = userinfo;
+        let { nickname, email, picture } = userinfo;
         //creando el usuario de auth0 en la base en caso no exista
-        if (nickname && email) {
+        let options ={}
+        if (userinfo) {
+            !userinfo.email ? options ={username:nickname}
+                            : options ={email:email}
+            
+            console.log('options',options)
             const [user, created] = await conn.model('User').findOrCreate({ 
-                  where: { email: email },
+                  where: options,
                   defaults:{
                   username: nickname,  
-                  email: email
+                  email: email,
+                  profileImage:picture
               }
             })
             return res.status(200).send("el usuario fue creado con exito")
@@ -30,8 +37,8 @@ const createUserAuth0 = async (req, res) => {
   }
 }
 
-const getUserByEmail = async (req, res) => {//ruta para obtener el id por email
-    const { email } = req.params;
+const getUserByUsername = async (req, res) => {//ruta para obtener el id por username
+    const { username } = req.params;
     try {
         const user = await conn.model('User').findAll( {
             include: {
@@ -39,8 +46,8 @@ const getUserByEmail = async (req, res) => {//ruta para obtener el id por email
                 include: Tag
             },
             where: {
-                    email:{
-                        [Op.like]: email
+                    username:{
+                        [Op.like]: username
                         }
                     }
         })
@@ -159,7 +166,7 @@ const updateUser = async (req, res) => {
 
 module.exports = {
     createUserAuth0,
-    getUserByEmail,
+    getUserByUsername,
     getUserById,
     getAllUsers,
     createUser,

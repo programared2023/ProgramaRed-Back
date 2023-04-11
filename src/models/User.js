@@ -20,13 +20,13 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: true, //necesario para poder crear usuarios con autenticación de terceros
       validate: {
-        len: 8, //length mínimo 8
+        len: 6, //length mínimo 6
         is: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+=[\]{}|\\,.?:\-<>\/~`]{8,}$/ //Tu contraseña debe incluír al menos una mayúscula y al menos un número
       }
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true, //necesario para poder crear usuarios con autenticación de terceros
       validate: {
         isEmail: true,
         len: 11, //length mínimo 11
