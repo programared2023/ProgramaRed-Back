@@ -1,55 +1,55 @@
 const { conn, Op, Post, Tag } = require('../db');
-const axios = require("axios"); 
+const axios = require("axios");
 
 const createUserAuth0 = async (req, res) => {
-  const accessToken =req.headers.authorization.split(' ')[1]
-    try{
+    const accessToken = req.headers.authorization.split(' ')[1]
+    try {
         console.log(accessToken)
-        const response = await axios.get('https://dev-ld1rfpxkhqa8gz6z.us.auth0.com/userinfo',{
-                headers:{
-                    authorization: `Bearer ${accessToken}`
-                }
-            })
+        const response = await axios.get('https://dev-ld1rfpxkhqa8gz6z.us.auth0.com/userinfo', {
+            headers: {
+                authorization: `Bearer ${accessToken}`
+            }
+        })
         const userinfo = response.data
         let { nickname, email, picture } = userinfo;
         //creando el usuario de auth0 en la base en caso no exista
-        let options ={}
+        let options = {}
         if (userinfo) {
-            !userinfo.email ? options ={username:nickname}
-                            : options ={email:email}
-            
-            console.log('options',options)
-            const [user, created] = await conn.model('User').findOrCreate({ 
-                  where: options,
-                  defaults:{
-                  username: nickname,  
-                  email: email,
-                  profileImage:picture
-              }
+            !userinfo.email ? options = { username: nickname }
+                : options = { email: email }
+
+            console.log('options', options)
+            const [user, created] = await conn.model('User').findOrCreate({
+                where: options,
+                defaults: {
+                    username: nickname,
+                    email: email,
+                    profileImage: picture
+                }
             })
             return res.status(200).send("el usuario fue creado con exito")
         }
         return res.status(400).json({ error: "faltan datos" })
-    }catch(e){
-    res.json({
-      error: e.message
-    })
-  }
+    } catch (e) {
+        res.json({
+            error: e.message
+        })
+    }
 }
 
 const getUserByUsername = async (req, res) => {//ruta para obtener el id por username
     const { username } = req.params;
     try {
-        const user = await conn.model('User').findAll( {
+        const user = await conn.model('User').findAll({
             include: {
                 model: Post,
                 include: Tag
             },
             where: {
-                    username:{
-                        [Op.like]: username
-                        }
-                    }
+                username: {
+                    [Op.like]: username
+                }
+            }
         })
         if (!user) {
             return res.status(400).send({ error: "El usuario no Existe" })
@@ -150,10 +150,12 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params
-        const { profileImage, description } = req.body
+        const { profileImage, description, socialLinks } = req.body
+        console.log({ profileImage, description, socialLinks });
         const [updated] = await conn.model('User').update({
             profileImage: profileImage,
-            description: description
+            description: description,
+            socialLinks: socialLinks
         }, { where: { id: id } })
 
         console.log(`${updated} updated user`);

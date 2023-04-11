@@ -41,12 +41,20 @@ module.exports = (sequelize) => {
       type: DataTypes.BOOLEAN,
       defaultValue: true
     },
+    isAdmin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     profileImage: {
       type: DataTypes.TEXT,
       allowNull: true
     },
     description: {
       type: DataTypes.TEXT,
+      allowNull: true
+    },
+    socialLinks: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: true
     }
   },
