@@ -5,6 +5,7 @@ const { createUserAuth0, getUserByUsername, getUserById, getAllUsers, createUser
 const { createSubscription, createPayment } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
+const { saveRating, updateRating } = require('../controllers/Rating');
 
 const router = Router();
 
@@ -33,5 +34,7 @@ router.get('/favorites/:userId', getFavoritesByUser)
 router.delete('/favorites', deleteFavorite)
 
 router.post('/comments', saveComment)
+router.post("/rating", saveRating)
+router.put("/rating/:id", updateRating)
 
 module.exports = router;
