@@ -6,6 +6,7 @@ const { createSubscription, createPayment } = require('../controllers/Subscripti
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
 const { saveRating, updateRating } = require('../controllers/Rating');
+const { countUsers, countPostByTag, commonTags } = require("../controllers/Dashboard")
 
 const router = Router();
 
@@ -36,5 +37,10 @@ router.delete('/favorites', deleteFavorite)
 router.post('/comments', saveComment)
 router.post("/rating", saveRating)
 router.put("/rating/:id", updateRating)
+
+/** RUTAS DEL DASHBOARD */
+router.get("/countUsers", countUsers)
+router.get("/countPosts", countPostByTag)
+router.get("/commonTags", commonTags)
 
 module.exports = router;
