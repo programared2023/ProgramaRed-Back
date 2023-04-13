@@ -78,8 +78,32 @@ const commonTags = async (req, res) => {
     }
 }
 
+/**
+ * 
+ * @param {*} req isPremium (OPTIONAL)
+ * @param {*} res users
+ * @returns All users whether are premium or not
+ */
+const getUsers = async (req, res) => {
+    try {
+        const { isPremium } = req.query
+        const users = await conn.model("User").findAll({
+            attributes: ["id", "username", "email", "isPremium", "isActive"],
+            include: [],
+            where: {
+                isPremium: isPremium || false
+            }
+        })
+        return res.status(200).json(users)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     countUsers,
     countPostByTag,
-    commonTags
+    commonTags,
+    getUsers
 }

@@ -6,7 +6,7 @@ const { createSubscription, createPayment, menssegerSuscribe } = require('../con
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment } = require('../controllers/Comment');
 const { saveRating, updateRating } = require('../controllers/Rating');
-const { countUsers, countPostByTag, commonTags } = require("../controllers/Dashboard")
+const { countUsers, countPostByTag, commonTags, getUsers } = require("../controllers/Dashboard")
 
 const router = Router();
 
@@ -43,5 +43,6 @@ router.put("/rating/:id", updateRating)
 router.get("/countUsers", countUsers)
 router.get("/countPosts", countPostByTag)
 router.get("/commonTags", commonTags)
+router.get("/allUsers", getUsers)
 
 module.exports = router;
