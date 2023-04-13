@@ -1,5 +1,6 @@
 const { conn } = require('../db');
 const mercadopago = require('../lib/mercadoPago')
+const miFuncion=require("../config/Nodemaeiler")
 
 const createSubscription = (req, res) => {
     try {
@@ -73,8 +74,25 @@ const createPayment = async (req, res) => {
         return res.status(500).send(error.message)
     }
 }
+const menssegerSuscribe=async (req,res)=>{
+    const {  username, email } = req.body
+
+          
+        try {
+         if(username&&email){      
+            await miFuncion(username,email)
+       return res.status(200).send("se envio correntamente el mensaje de suscribion")}
+              }
+        catch (error) {
+          console.error(error);
+          return res.status(400).send(error)
+        }
+     
+
+}
 
 module.exports = {
     createSubscription,
-    createPayment
+    createPayment,
+    menssegerSuscribe
 }
