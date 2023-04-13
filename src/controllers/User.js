@@ -150,12 +150,13 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params
-        const { profileImage, description, socialLinks } = req.body
-        console.log({ profileImage, description, socialLinks });
+        const { profileImage, description, socialLinks,email } = req.body
+        console.log({ profileImage, description, socialLinks,email });
         const [updated] = await conn.model('User').update({
             profileImage: profileImage,
             description: description,
-            socialLinks: socialLinks
+            socialLinks: socialLinks,
+            email:email
         }, { where: { id: id } })
 
         console.log(`${updated} updated user`);
