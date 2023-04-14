@@ -28,7 +28,10 @@ const createUserAuth0 = async (req, res) => {
                     profileImage: picture
                 }
             })
-            return res.status(200).send("el usuario fue creado con exito")
+            const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
+            return res.status(200).json({ user: user.toJSON(),
+                                          msg: "el usuario fue creado con exito",
+                                          token })
         }
         return res.status(400).json({ error: "faltan datos" })
     } catch (e) {
