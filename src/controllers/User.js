@@ -56,7 +56,7 @@ const loginUser = async (req, res) => {
     }
 }
 
-const getUserByUsername = async (req, res) => {//ruta para obtener el id por username
+const getUserByUsername = async (req, res) => {
     const { username } = req.params;
     try {
         const users = await conn.model('User').findAll({
@@ -65,9 +65,10 @@ const getUserByUsername = async (req, res) => {//ruta para obtener el id por use
                 include: Tag
             },
             where: {
-                username: {
-                    [Op.like]: username
-                }
+                [Op.and]: [
+                    { username: { [Op.like]: `%${username}%` } },
+                    { isActive: true }
+                ]
             }
         })
         if (!users.length) {
@@ -103,29 +104,27 @@ const getUserById = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const { username } = req.query
-        let options = {
-            include: {
-                model: Post,
-                include: Tag
+        // const { username } = req.query
+        // let where = { isActive: true }
+        // let options = {
+        //     include: {
+        //         model: Post,
+        //         include: Tag
+        //     }
+        // }
+        // if (username) {
+        //     options = {
+        //         ...options,
+        //         where: {
+
+        //         }
+        //     }
+        // }
+        const users = await conn.model('User').findAll({
+            where: {
+                isActive: true
             }
-        }
-        if (username) {
-            options = {
-                ...options,
-                where: {
-                    [Op.and]: [
-                        {
-                            username: {
-                                [Op.like]: `%${username.toLowerCase()}%`
-                            }
-                        },
-                        { isActive: true }
-                    ]
-                }
-            }
-        }
-        const users = await conn.model('User').findAll(options)
+        })
         return res.status(200).json(users)
     } catch (error) {
         return res.status(400).send(error.message)
