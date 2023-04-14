@@ -4,7 +4,7 @@ const getAllTags = require('../controllers/Tags');
 const { createUserAuth0, getUserByUsername, getUserById, getAllUsers, registerUser, deleteUser, updateUser, loginUser } = require('../controllers/User');
 const { createSubscription, createPayment, menssegerSuscribe } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
-const { saveComment } = require('../controllers/Comment');
+const { saveComment, updateComment, deleteComment } = require('../controllers/Comment');
 const { saveRating, updateRating } = require('../controllers/Rating');
 const { countUsers, countPostByTag, commonTags, getUsers } = require("../controllers/Dashboard");
 const auth = require('../middleware/auth');
@@ -40,6 +40,13 @@ router.delete('/favorites', auth, deleteFavorite)
 router.post('/comments', auth, saveComment)
 router.post("/rating", auth, saveRating)
 router.put("/rating/:id", auth, updateRating)
+
+router.post('/comments', saveComment)
+router.put("/comments/:id", updateComment)
+router.delete("/comments", deleteComment)
+
+router.post("/rating", saveRating)
+router.put("/rating/:id", updateRating)
 
 /** RUTAS DEL DASHBOARD */
 router.get("/countUsers", auth, countUsers)
