@@ -1,5 +1,6 @@
 const { conn, Op, Post, Tag } = require('../db');
 const axios = require("axios");
+const jwt = require('jsonwebtoken')
 
 const createUserAuth0 = async (req, res) => {
     const accessToken = req.headers.authorization.split(' ')[1]
@@ -37,10 +38,28 @@ const createUserAuth0 = async (req, res) => {
     }
 }
 
+const loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body
+        const user = await conn.model("User").findOne({
+            where: {
+                [Op.and]: [{ username: username }, { password: password }]
+            }
+        })
+        if (!user) return res.status(400).send("Credenciales invalidas")
+
+        const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
+        return res.status(200).json({ user: user.toJSON(), token })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 const getUserByUsername = async (req, res) => {//ruta para obtener el id por username
     const { username } = req.params;
     try {
-        const user = await conn.model('User').findAll({
+        const users = await conn.model('User').findAll({
             include: {
                 model: Post,
                 include: Tag
@@ -51,10 +70,10 @@ const getUserByUsername = async (req, res) => {//ruta para obtener el id por use
                 }
             }
         })
-        if (!user) {
-            return res.status(400).send({ error: "El usuario no Existe" })
+        if (!users.length) {
+            return res.status(400).send({ error: "El usuario no existe" })
         }
-        return res.status(200).json(user)
+        return res.status(200).json(users)
     } catch (error) {
         return res.status(400).send(error.message)
     }
@@ -113,7 +132,7 @@ const getAllUsers = async (req, res) => {
     }
 }
 
-const createUser = async (req, res) => {
+const registerUser = async (req, res) => {
     const { username, password, email } = req.body;
     try {
         if (username && password && email) {
@@ -124,7 +143,7 @@ const createUser = async (req, res) => {
         }
         return res.status(400).json({ error: "faltan datos" })
     } catch (e) {
-        return res.status(400).json({error: e.message})
+        return res.status(400).json({ error: e.message })
     }
 
 }
@@ -150,13 +169,13 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params
-        const { profileImage, description, socialLinks,email } = req.body
-        console.log({ profileImage, description, socialLinks,email });
+        const { profileImage, description, socialLinks, email } = req.body
+        console.log({ profileImage, description, socialLinks, email });
         const [updated] = await conn.model('User').update({
             profileImage: profileImage,
             description: description,
             socialLinks: socialLinks,
-            email:email
+            email: email
         }, { where: { id: id } })
 
         console.log(`${updated} updated user`);
@@ -172,7 +191,8 @@ module.exports = {
     getUserByUsername,
     getUserById,
     getAllUsers,
-    createUser,
+    registerUser,
     deleteUser,
-    updateUser
+    updateUser,
+    loginUser
 }
