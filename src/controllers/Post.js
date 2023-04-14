@@ -4,6 +4,8 @@ async function getAllPost2(req, res) {
   const { title, username, tag, titleOrder, dateOrder } = req.query;
   let order = []
   let OR = []
+  let where = { isActive: true }
+
   if (titleOrder) {
     order = [['title', titleOrder]]
   } else if (dateOrder) {
@@ -12,11 +14,7 @@ async function getAllPost2(req, res) {
 
   let options = {
     include: [User, Tag],
-    where: {
-      [Op.and]: {
-        isActive: true
-      }
-    },
+    where: where,
     order: order
   };
   try {
@@ -46,6 +44,7 @@ async function getAllPost2(req, res) {
       options = {
         ...options,
         where: {
+          ...where,
           [Op.or]: OR
         }
       }
@@ -62,7 +61,9 @@ async function getAllPost2(req, res) {
 async function getAllPost(req, res) {
   const { search, titleOrder, dateOrder } = req.query;
   let order = []
-  // let OR = []
+  let or = []
+  let where = { isActive: true }
+
   if (titleOrder) {
     order = [['title', titleOrder]]
   } else if (dateOrder) {
@@ -71,23 +72,23 @@ async function getAllPost(req, res) {
 
   let options = {
     include: [User, Tag],
-    where: {
-      [Op.and]: {
-        isActive: true
-      }
-    },
+    where: where,
     order: order
   };
   try {
     if (search) {
+      or = [
+        { title: { [Op.iLike]: `%${search}%`, } },
+        { "$User.username$": { [Op.like]: `%${search}%` } },
+        { "$Tags.name$": { [Op.like]: `%${search}%` } }
+      ]
+    }
+    if (or.length) {
       options = {
         ...options,
         where: {
-          [Op.or]: [
-            { title: { [Op.iLike]: `%${search}%`, } },
-            { "$User.username$": { [Op.like]: `%${search}%` } },
-            { "$Tags.name$": { [Op.like]: `%${search}%` } }
-          ],
+          ...where,
+          [Op.or]: or,
         },
       };
     }
