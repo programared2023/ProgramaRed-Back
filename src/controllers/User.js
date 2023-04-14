@@ -120,11 +120,11 @@ const createUser = async (req, res) => {
             const createdUser = await conn.model('User').create({ username: username, password: password, email: email })
 
             console.log(createdUser);
-            return res.status(200).send("el usuario fue creado con exito")
+            return res.status(200).send(`el usuario: ${username} fue creado con exito`)
         }
         return res.status(400).json({ error: "faltan datos" })
     } catch (e) {
-        return res.status(400).send(e.message)
+        return res.status(400).json({error: e.message})
     }
 
 }
