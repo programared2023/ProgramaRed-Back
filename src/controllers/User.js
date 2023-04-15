@@ -29,9 +29,11 @@ const createUserAuth0 = async (req, res) => {
                 }
             })
             const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
-            return res.status(200).json({ user: user.toJSON(),
-                                          msg: "el usuario fue creado con exito",
-                                          token })
+            return res.status(200).json({
+                user: user.toJSON(),
+                msg: "el usuario fue creado con exito",
+                token
+            })
         }
         return res.status(400).json({ error: "faltan datos" })
     } catch (e) {
@@ -172,13 +174,34 @@ const updateUser = async (req, res) => {
     try {
         const { id } = req.params
         const { profileImage, description, socialLinks, email } = req.body
-        console.log({ profileImage, description, socialLinks, email });
-        const [updated] = await conn.model('User').update({
-            profileImage: profileImage,
-            description: description,
-            socialLinks: socialLinks,
-            email: email
-        }, { where: { id: id } })
+
+        let data = {}
+        if (profileImage) {
+            data = {
+                ...data,
+                profileImage
+            }
+        }
+        if (description) {
+            data = {
+                ...data,
+                description
+            }
+        }
+        if (socialLinks) {
+            data = {
+                ...data,
+                socialLinks
+            }
+        }
+        if (email) {
+            data = {
+                ...data,
+                email
+            }
+        }
+        console.log(data);
+        const [updated] = await conn.model('User').update(data, { where: { id: id } })
 
         console.log(`${updated} updated user`);
         return res.status(200).send("Usuario actualizado")
