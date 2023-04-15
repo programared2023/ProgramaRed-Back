@@ -3,12 +3,12 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
-const cors =require ('cors');
+const cors = require('cors');
 
-const corsOrigin ={
-    origin:'*', //or whatever port your frontend is using
-    credentials:true,            
-    optionSuccessStatus:200
+const corsOrigin = {
+  origin: process.env.URL_FRONT,
+  credentials: true,
+  optionSuccessStatus: 200
 }
 require('./db.js');
 

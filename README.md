@@ -1,7 +1,3 @@
 # ProgramaRed - BackEnd
-
-## Desarrollado por: 
-* Nicolas Eduardo Juncos
-* Franco David Segovia
-* Jeffer Camilo Romero Perez
-* Thomas Enrique Naquiche Leon
+----------------------------------------------------------------------------------------------------
+## Desarrollado por N - F - J - T
