@@ -60,10 +60,10 @@ function createPosts() {
 
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(async () => {
+conn.sync({ force: true }).then(async () => {
   console.log('db connected')
-  // createUsers()
-  // createPosts()
+   createUsers()
+   createPosts()
 
   server.listen(port, () => {
     console.log(`server listening at ${port}`); // eslint-disable-line no-console
