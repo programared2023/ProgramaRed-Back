@@ -1,7 +1,6 @@
 module.exports = {
-
-	mail: function (username){
-	let correoPersonalizado= `<body>
+	mail: function (username) {
+		let correoPersonalizado = `<body>
 	<div class="es-wrapper-color">
 		<!--[if gte mso 9]>
 				<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
@@ -417,12 +416,10 @@ module.exports = {
 	</div>
 	</body>
 	`
-	return correoPersonalizado;
-
+		return correoPersonalizado;
 	},
-
-	mailRegister: function (username){
-		let bienvenida=	`
+	mailRegister: function (username) {
+		let bienvenida = `
 			<body>
 				<div class="es-wrapper-color">
 					<!--[if gte mso 9]>
@@ -481,7 +478,7 @@ module.exports = {
 																						<tbody>
 																							<tr>
 																								<td align="center" class="esd-block-text es-p10b es-p40r es-p40l es-m-p0r es-m-p0l">
-																									<h1 style="font-size: 32px; text-align: center;">¡Bienvenido a <span style="font-size:34px;">ProgramaRed&nbsp;😊</span>!&nbsp;</h1>
+																									<h1 style="font-size: 32px; text-align: center;">¡Bienvenido a <span style="font-size:34px;">ProgramaRed&nbsp; ${username}😊</span>!&nbsp;</h1>
 																								</td>
 																							</tr>
 																							<tr>
@@ -686,7 +683,522 @@ module.exports = {
 			</body>
 			
 			`
-			return bienvenida
-						
+		return bienvenida
+	},
+	mailDesbaneo: function (username) {
+		let bienvenida = `
+			<body>
+				<div class="es-wrapper-color">
+					<!--[if gte mso 9]>
+						<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+							<v:fill type="tile" color="#aad576"></v:fill>
+						</v:background>
+					<![endif]-->
+					<table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td class="esd-email-paddings" valign="top">
+									<table cellpadding="0" cellspacing="0" class="esd-header-popover es-header" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-header-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure esdev-adapt-off" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="580" class="es-m-p0r esd-container-frame" valign="top" align="center">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href="https://front-programa-red.vercel.app/home"><img class="adapt-img" src="https://gtfqov.stripocdn.email/content/guids/CABINET_bc226981bf9a9de9b3e1f896df4c90639fbca5d662d15ccbfabf150976647ae8/images/logonombre.png" alt style="display: block;" width="205"></a></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure es-p40" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-text es-p10b es-p40r es-p40l es-m-p0r es-m-p0l">
+																									<h1 style="font-size: 32px; text-align: center;">¡Fuiste desbaneado de <span style="font-size:34px;">ProgramaRed&nbsp; ${username}🤗!</span>!&nbsp;</h1>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td align="left" class="esd-block-text es-p20t es-p20b es-p40r es-p40l es-m-p0">
+																									<p style="font-size: 16px;">👏Nos complace darte la bienvenida de nuevo a nuestra Red Social 🙌, no olvides respetar las reglas del sitio ya que podrias ser ⚠baneado de por vida ⚠</p>
+																									<p style="font-size: 16px;"><br></p>
+																									<p>👮‍♀️ Los administradores siempre estamos observando 👮‍♂️...</p>
+																									<p><br></p>
+																									<p style="font-size: 32px; text-align: center;">¡Bienvenido de nuevo a ProgramaRed!🚀</p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure es-p40t es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-text es-p20t es-p20b es-p40r es-p40l es-m-p0r es-m-p0l">
+																									<p>Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto con nosotros. Estamos aquí para ayudarte en todo lo que necesites.<br></p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td class="esd-structure es-p20t es-p40r es-p40l" align="left">
+																	<!--[if mso]><table width="500" cellpadding="0" cellspacing="0"><tr><td width="240" valign="top"><![endif]-->
+																	<table cellpadding="0" cellspacing="0" class="es-left" align="left">
+																		<tbody>
+																			<tr>
+																				<td width="240" class="es-m-p20b esd-container-frame" align="left">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-button">
+																									<!--[if mso]><a href="https://front-programa-red.vercel.app/home" target="_blank" hidden>
+					<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://front-programa-red.vercel.app/home" 
+								style="height:48px; v-text-anchor:middle; width:117px" arcsize="0%" stroke="f"  fillcolor="#538d22">
+						<w:anchorlock></w:anchorlock>
+						<center style='color:#ffffff; font-family:Sora, Arial, sans-serif; font-size:19px; font-weight:700; line-height:19px;  mso-text-raise:1px'>HOME</center>
+					</v:roundrect></a>
+				<![endif]-->
+																									<!--[if !mso]><!-- --><span class="msohide es-button-border"><a href="https://front-programa-red.vercel.app/home" class="es-button" target="_blank" style="font-weight: bold; font-size: 24px;">HOME</a></span>
+																									<!--<![endif]-->
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<!--[if mso]></td><td width="20"></td><td width="240" valign="top"><![endif]-->
+																	<table cellpadding="0" cellspacing="0" class="es-right" align="right">
+																		<tbody>
+																			<tr>
+																				<td width="240" align="left" class="esd-container-frame">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-button">
+																									<!--[if mso]><a href="https://front-programa-red.vercel.app/about" target="_blank" hidden>
+					<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://front-programa-red.vercel.app/about" 
+								style="height:48px; v-text-anchor:middle; width:129px" arcsize="0%" stroke="f"  fillcolor="#538d22">
+						<w:anchorlock></w:anchorlock>
+						<center style='color:#ffffff; font-family:Sora, Arial, sans-serif; font-size:19px; font-weight:700; line-height:19px;  mso-text-raise:1px'>ABOUT</center>
+					</v:roundrect></a>
+				<![endif]-->
+																									<!--[if !mso]><!-- --><span class="msohide es-button-border"><a href="https://front-programa-red.vercel.app/about" class="es-button" target="_blank" style="font-size: 24px; font-weight: bold;">ABOUT</a></span>
+																									<!--<![endif]-->
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<!--[if mso]></td></tr></table><![endif]-->
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table cellpadding="0" cellspacing="0" class="esd-footer-popover es-footer" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure es-p20t es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-text">
+																									<p><u>podes Comunicate con Nostros</u></p>
+																									<p>programared2023@gmail.com</p>
+																									<p>o contactar con nosotros en&nbsp;nuestro gitHub</p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td class="esd-structure es-p20t es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href="https://github.com/programared2023"><img class="adapt-img" src="https://icones.pro/wp-content/uploads/2021/06/icone-github-verte.png" alt style="display: block;" width="80"></a></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td class="esd-structure es-p20t es-p40b es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="left">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-spacer es-p30t es-p30b es-p40r es-p40l es-m-p0r es-m-p0l" style="font-size:0">
+																									<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+																										<tbody>
+																											<tr>
+																												<td style="border-bottom: 2px solid #538d22; background: unset; height: 1px; width: 100%; margin: 0px;"></td>
+																											</tr>
+																										</tbody>
+																									</table>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</body>
+			
+			`
+		return bienvenida
+	},
+	mailBaneo: function (username) {
+		let bienvenida = `
+			<body>
+				<div class="es-wrapper-color">
+					<!--[if gte mso 9]>
+						<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+							<v:fill type="tile" color="#aad576"></v:fill>
+						</v:background>
+					<![endif]-->
+					<table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td class="esd-email-paddings" valign="top">
+									<table cellpadding="0" cellspacing="0" class="esd-header-popover es-header" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-header-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure esdev-adapt-off" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="580" class="es-m-p0r esd-container-frame" valign="top" align="center">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href="https://front-programa-red.vercel.app/home"><img class="adapt-img" src="https://gtfqov.stripocdn.email/content/guids/CABINET_bc226981bf9a9de9b3e1f896df4c90639fbca5d662d15ccbfabf150976647ae8/images/logonombre.png" alt style="display: block;" width="205"></a></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure es-p40" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-text es-p10b es-p40r es-p40l es-m-p0r es-m-p0l">
+																									<h1 style="font-size: 32px; text-align: center;">¡Fuiste baneado de <span style="font-size:34px;">ProgramaRed&nbsp; ${username} 😱</span>!&nbsp;</h1>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td align="left" class="esd-block-text es-p20t es-p20b es-p40r es-p40l es-m-p0">
+																									<p style="font-size: 16px;"> ⚠ Recibiste este correo porque tu cuenta fue baneada de nuestro sitio, por favor comunicate con algun administrador del mismo para apelar a este baneo. ⚠ </p>
+																									
+<p><br></p>
+																						
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table cellpadding="0" cellspacing="0" class="es-content" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure es-p40t es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-text es-p20t es-p20b es-p40r es-p40l es-m-p0r es-m-p0l">
+																									<p>Si consideras que este baneo fue un error, comunicate con los admins del sitio para apelar tu queja 🤔.<br></p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td class="esd-structure es-p20t es-p40r es-p40l" align="left">
+																	<!--[if mso]><table width="500" cellpadding="0" cellspacing="0"><tr><td width="240" valign="top"><![endif]-->
+																	<table cellpadding="0" cellspacing="0" class="es-left" align="left">
+																		<tbody>
+																			<tr>
+																				<td width="240" class="es-m-p20b esd-container-frame" align="left">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-button">
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<!--[if mso]></td><td width="20"></td><td width="240" valign="top"><![endif]-->
+																	<table cellpadding="0" cellspacing="0" class="es-right" align="right">
+																		<tbody>
+																			<tr>
+																				<td width="240" align="left" class="esd-container-frame">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-button">
+																									
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																	<!--[if mso]></td></tr></table><![endif]-->
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table cellpadding="0" cellspacing="0" class="esd-footer-popover es-footer" align="center">
+										<tbody>
+											<tr>
+												<td class="esd-stripe" align="center">
+													<table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" width="580">
+														<tbody>
+															<tr>
+																<td class="esd-structure es-p20t es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-text">
+																									<p><u>podes Comunicate con Nostros</u></p>
+																									<p>programared2023@gmail.com</p>
+																									<p>o contactar con nosotros en&nbsp;nuestro gitHub</p>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td class="esd-structure es-p20t es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="center" valign="top">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-image" style="font-size: 0px;"><a target="_blank" href="https://github.com/programared2023"><img class="adapt-img" src="https://icones.pro/wp-content/uploads/2021/06/icone-github-verte.png" alt style="display: block;" width="80"></a></td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+															<tr>
+																<td class="esd-structure es-p20t es-p40b es-p40r es-p40l" align="left">
+																	<table cellpadding="0" cellspacing="0" width="100%">
+																		<tbody>
+																			<tr>
+																				<td width="500" class="esd-container-frame" align="left">
+																					<table cellpadding="0" cellspacing="0" width="100%">
+																						<tbody>
+																							<tr>
+																								<td align="center" class="esd-block-spacer es-p30t es-p30b es-p40r es-p40l es-m-p0r es-m-p0l" style="font-size:0">
+																									<table border="0" width="100%" height="100%" cellpadding="0" cellspacing="0">
+																										<tbody>
+																											<tr>
+																												<td style="border-bottom: 2px solid #538d22; background: unset; height: 1px; width: 100%; margin: 0px;"></td>
+																											</tr>
+																										</tbody>
+																									</table>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</body>
+			
+			`
+		return bienvenida
 	}
 }
