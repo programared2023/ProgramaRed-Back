@@ -18,7 +18,6 @@ const createUserAuth0 = async (req, res) => {
             !userinfo.email ? options = { username: nickname }
                 : options = { email: email }
 
-            console.log('options', options)
             const [user, created] = await conn.model('User').findOrCreate({
                 where: options,
                 defaults: {
@@ -69,12 +68,8 @@ const getUserByUsername = async (req, res) => {
                 model: Post,
                 include: Tag
             },
-            where: {
-                [Op.and]: [
-                    { username: { [Op.like]: `%${username}%` } },
-                    { isActive: true }
-                ]
-            }
+            where:  
+                    { username: { [Op.like]: `%${username}%` } }
         })
         if (!users.length) {
             return res.status(400).send({ error: "El usuario no existe" })
