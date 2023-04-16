@@ -276,14 +276,14 @@ let correoPersonalizado= `<body>
 																		<tbody>
 																			<tr>
 																				<td align="center" class="esd-block-button">
-																					<!--[if mso]><a href="https://programared-front-production.up.railway.app/home" target="_blank" hidden>
-	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://programared-front-production.up.railway.app/home" 
+																					<!--[if mso]><a href="https://front-programa-red.vercel.app/" target="_blank" hidden>
+	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://front-programa-red.vercel.app/" 
 				style="height:48px; v-text-anchor:middle; width:117px" arcsize="0%" stroke="f"  fillcolor="#538d22">
 		<w:anchorlock></w:anchorlock>
 		<center style='color:#ffffff; font-family:Sora, Arial, sans-serif; font-size:19px; font-weight:700; line-height:19px;  mso-text-raise:1px'>HOME</center>
 	</v:roundrect></a>
 <![endif]-->
-																					<!--[if !mso]><!-- --><span class="msohide es-button-border"><a href="https://programared-front-production.up.railway.app/home" class="es-button" target="_blank" style="font-weight: bold; font-size: 24px;">HOME</a></span>
+																					<!--[if !mso]><!-- --><span class="msohide es-button-border"><a href="https://front-programa-red.vercel.app/" class="es-button" target="_blank" style="font-weight: bold; font-size: 24px;">HOME</a></span>
 																					<!--<![endif]-->
 																				</td>
 																			</tr>
@@ -301,15 +301,14 @@ let correoPersonalizado= `<body>
 																	<table cellpadding="0" cellspacing="0" width="100%">
 																		<tbody>
 																			<tr>
-																				<td align="center" class="esd-block-button">
-																					<!--[if mso]><a href="https://programared-front-production.up.railway.app/about" target="_blank" hidden>
-	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://programared-front-production.up.railway.app/about" 
+																				<td align="center" class="https://front-programa-red.vercel.app/about" target="_blank" hidden>
+	<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" esdevVmlButton href="https://front-programa-red.vercel.app/about" 
 				style="height:48px; v-text-anchor:middle; width:129px" arcsize="0%" stroke="f"  fillcolor="#538d22">
 		<w:anchorlock></w:anchorlock>
 		<center style='color:#ffffff; font-family:Sora, Arial, sans-serif; font-size:19px; font-weight:700; line-height:19px;  mso-text-raise:1px'>ABOUT</center>
 	</v:roundrect></a>
 <![endif]-->
-																					<!--[if !mso]><!-- --><span class="msohide es-button-border"><a href="https://programared-front-production.up.railway.app/about" class="es-button" target="_blank" style="font-size: 24px; font-weight: bold;">ABOUT</a></span>
+																					<!--[if !mso]><!-- --><span class="msohide es-button-border"><a href="https://front-programa-red.vercel.app/about" class="es-button" target="_blank" style="font-size: 24px; font-weight: bold;">ABOUT</a></span>
 																					<!--<![endif]-->
 																				</td>
 																			</tr>
