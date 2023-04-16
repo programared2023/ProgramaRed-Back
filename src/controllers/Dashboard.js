@@ -101,9 +101,24 @@ const getUsers = async (req, res) => {
     }
 }
 
+const unbanUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const [updated] = await conn.model("User").update({
+            isActive: true
+        }, { where: { id: id } })
+        console.log(`${updated} user marked as active`);
+        return res.status(200).send("Usuario desbaneado")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     countUsers,
     countPostByTag,
     commonTags,
-    getUsers
+    getUsers,
+    unbanUser
 }
