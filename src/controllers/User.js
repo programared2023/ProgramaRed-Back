@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken')
 const createUserAuth0 = async (req, res) => {
     const accessToken = req.headers.authorization.split(' ')[1]
     try {
-        console.log(accessToken)
         const response = await axios.get('https://dev-ld1rfpxkhqa8gz6z.us.auth0.com/userinfo', {
             headers: {
                 authorization: `Bearer ${accessToken}`
@@ -32,7 +31,8 @@ const createUserAuth0 = async (req, res) => {
             return res.status(200).json({
                 user: user.toJSON(),
                 msg: "el usuario fue creado con exito",
-                token
+                token,
+                created
             })
         }
         return res.status(400).json({ error: "faltan datos" })
