@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');//! denbo instalar
 
 
-const mail=require("../templateHtml/subcribe")
+const {mail,mailRegister} =require("../templateHtml/subcribe")
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com', // Servidor de correo electrónico de origen
@@ -15,15 +15,14 @@ const transporter = nodemailer.createTransport({
 
 
  function miFuncion(username,email,type) {  
-    if (type==="Suscripcion") correoPersonalizado=mail(username)
-    if (type==="Registro") correoPersonalizado=mail(username)
+    
     try {
       let envio =  transporter.sendMail({
         from: "huntersoporteprueba@gmail.com",
         to: email,
         subject: `${type} ProgramaRed`,
         text: `${type}`,
-        html: correoPersonalizado
+        html: type==="Suscripcion" ? mail(username): mailRegister(username)
       });
       return envio;
     } catch (error) {
