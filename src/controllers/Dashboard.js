@@ -115,10 +115,26 @@ const unbanUser = async (req, res) => {
     }
 }
 
+const getActiveUsers = async (req, res) => {
+    try {
+        const { isActive } = req.query
+        const users = await conn.model("User").findAll({
+            where: {
+                isActive: isActive
+            }
+        })
+        return res.status(200).json(users)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     countUsers,
     countPostByTag,
     commonTags,
     getUsers,
-    unbanUser
+    unbanUser,
+    getActiveUsers
 }
