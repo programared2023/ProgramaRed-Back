@@ -745,14 +745,16 @@ module.exports = {
 																						<tbody>
 																							<tr>
 																								<td align="center" class="esd-block-text es-p10b es-p40r es-p40l es-m-p0r es-m-p0l">
-																									<h1 style="font-size: 32px; text-align: center;">¡Fuiste desbaneado de <span style="font-size:34px;">ProgramaRed&nbsp; ${username}🤗!</span>!&nbsp;</h1>
+																									<h1 style="font-size: 32px; text-align: center;">¡Tu cuenta de <span style="font-size:34px;">ProgramaRed&nbsp; fue restituida ${username} 🤗!</span>!&nbsp;</h1>
 																								</td>
 																							</tr>
 																							<tr>
 																								<td align="left" class="esd-block-text es-p20t es-p20b es-p40r es-p40l es-m-p0">
 																									<p style="font-size: 16px;">👏Nos complace darte la bienvenida de nuevo a nuestra Red Social 🙌, no olvides respetar las reglas del sitio ya que podrias ser ⚠baneado de por vida ⚠</p>
 																									<p style="font-size: 16px;"><br></p>
-																									<p>👮‍♀️ Los administradores siempre estamos observando 👮‍♂️...</p>
+<strong>
+<p>👮‍♀️ Los administradores siempre estamos observando 👮‍♂️...</p>
+</strong>																									
 																									<p><br></p>
 																									<p style="font-size: 32px; text-align: center;">¡Bienvenido de nuevo a ProgramaRed!🚀</p>
 																								</td>
