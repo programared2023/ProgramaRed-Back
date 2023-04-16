@@ -75,13 +75,13 @@ const createPayment = async (req, res) => {
     }
 }
 const menssegerSuscribe=async (req,res)=>{
-    const {  username, email } = req.body
+    const {  username, email,type } = req.body
 
           
         try {
-         if(username&&email){      
-            await miFuncion(username,email)
-       return res.status(200).send("se envio correntamente el mensaje de suscribion")}
+         if(username&&email&&type){      
+            await miFuncion(username,email,type)
+       return res.status(200).send(`se envio correntamente el mensaje de ${type}`)}
               }
         catch (error) {
           console.error(error);
