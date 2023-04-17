@@ -53,8 +53,8 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: true
     },
-    socialLinks: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+    socialLink: {
+      type: DataTypes.STRING,
       allowNull: true
     }
   },

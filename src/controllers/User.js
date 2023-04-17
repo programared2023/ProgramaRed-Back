@@ -155,7 +155,7 @@ const deleteUser = async (req, res) => {
 const updateUser = async (req, res) => {
     try {
         const { id } = req.params
-        const { profileImage, description, socialLinks, email } = req.body
+        const { profileImage, description, socialLink, email } = req.body
 
         let data = {}
         if (profileImage) {
@@ -170,10 +170,10 @@ const updateUser = async (req, res) => {
                 description
             }
         }
-        if (socialLinks) {
+        if (socialLink) {
             data = {
                 ...data,
-                socialLinks
+                socialLink
             }
         }
         if (email) {
