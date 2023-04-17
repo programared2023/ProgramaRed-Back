@@ -24,9 +24,9 @@ module.exports = (sequelize) => {
         this.setDataValue('description', value.charAt(0).toUpperCase() + value.slice(1));
       }
     },
-    files: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: true,
+    likes: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0
     },
     publishDate: {
       type: DataTypes.DATEONLY,

@@ -24,7 +24,7 @@ const getFavoritesByUser = async (req, res) => {
         const favorites = await conn.model('Favorite').findAll({
             include: {
                 model: conn.model('Post'),
-                include: conn.model('User')
+                include: [conn.model('User'), conn.model("Tag")]
             },
             where: {
                 idUser: userId
