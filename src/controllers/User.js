@@ -157,7 +157,10 @@ const updateUser = async (req, res) => {
         const { id } = req.params
         const { profileImage, description, socialLink, email } = req.body
 
-        let data = {}
+        let data = {
+            socialLink: socialLink
+        }
+
         if (profileImage) {
             data = {
                 ...data,
@@ -168,12 +171,6 @@ const updateUser = async (req, res) => {
             data = {
                 ...data,
                 description
-            }
-        }
-        if (socialLink) {
-            data = {
-                ...data,
-                socialLink
             }
         }
         if (email) {
