@@ -1,6 +1,6 @@
 const { conn, Op, Post, Tag } = require('../db');
 const axios = require("axios");
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 const createUserAuth0 = async (req, res) => {
     const accessToken = req.headers.authorization.split(' ')[1]
@@ -26,11 +26,10 @@ const createUserAuth0 = async (req, res) => {
                     profileImage: picture
                 }
             })
-            const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
+            // const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
             return res.status(200).json({
                 user: user.toJSON(),
-                msg: "el usuario fue creado con exito",
-                token,
+                msg: "El usuario fue creado con exito",
                 created
             })
         }
@@ -52,8 +51,8 @@ const loginUser = async (req, res) => {
         })
         if (!user) return res.status(400).send("Credenciales invalidas")
 
-        const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
-        return res.status(200).json({ user: user.toJSON(), token })
+        // const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
+        return res.status(200).json({ user: user.toJSON() })
     } catch (error) {
         console.log(error);
         return res.status(500).send(error.message)
@@ -68,8 +67,12 @@ const getUserByUsername = async (req, res) => {
                 model: Post,
                 include: Tag
             },
-            where:  
-                    { username: { [Op.like]: `%${username}%` } }
+            where: {
+                [Op.and]: [
+                    { username: { [Op.like]: `%${username}%` } },
+                    { isActive: true }
+                ]
+            }
         })
         if (!users.length) {
             return res.status(400).send({ error: "El usuario no existe" })
@@ -104,22 +107,6 @@ const getUserById = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        // const { username } = req.query
-        // let where = { isActive: true }
-        // let options = {
-        //     include: {
-        //         model: Post,
-        //         include: Tag
-        //     }
-        // }
-        // if (username) {
-        //     options = {
-        //         ...options,
-        //         where: {
-
-        //         }
-        //     }
-        // }
         const users = await conn.model('User').findAll({
             where: {
                 isActive: true
@@ -138,7 +125,7 @@ const registerUser = async (req, res) => {
             const createdUser = await conn.model('User').create({ username: username, password: password, email: email })
 
             console.log(createdUser);
-            return res.status(200).send(`el usuario: ${username} fue creado con exito`)
+            return res.status(200).send(`El usuario ${username} fue creado con exito`)
         }
         return res.status(400).json({ error: "faltan datos" })
     } catch (e) {

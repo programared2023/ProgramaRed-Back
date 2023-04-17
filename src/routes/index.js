@@ -4,7 +4,7 @@ const getAllTags = require('../controllers/Tags');
 const { createUserAuth0, getUserByUsername, getUserById, getAllUsers, registerUser, deleteUser, updateUser, loginUser } = require('../controllers/User');
 const { createSubscription, createPayment, menssegerSuscribe } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
-const { saveComment, updateComment, deleteComment } = require('../controllers/Comment');
+const { saveComment, updateComment, deleteComment, saveLike } = require('../controllers/Comment');
 const { saveRating, updateRating } = require('../controllers/Rating');
 const { countUsers, countPostByTag, commonTags, getUsers, unbanUser, getActiveUsers } = require("../controllers/Dashboard");
 const auth = require('../middleware/auth');
@@ -44,6 +44,7 @@ router.put("/rating/:id", updateRating)
 router.post('/comments', saveComment)
 router.put("/comments/:id", updateComment)
 router.delete("/comments", deleteComment)
+router.put("/saveLikes/:id", saveLike)
 
 router.post("/rating", saveRating)
 router.put("/rating/:id", updateRating)

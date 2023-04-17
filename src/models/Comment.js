@@ -13,6 +13,10 @@ module.exports = (sequelize) => {
       set(value) {//SET lo guardo siempre en mayúsculas la primera letra
         this.setDataValue('comment', value.charAt(0).toUpperCase() + value.slice(1));
       }
+    },
+    likes: {
+      type: DataTypes.BIGINT,
+      defaultValue: 0
     }
   },
     {
