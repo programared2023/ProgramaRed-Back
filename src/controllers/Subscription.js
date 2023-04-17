@@ -81,7 +81,7 @@ const menssegerSuscribe=async (req,res)=>{
         try {
          if(username&&email&&type){      
             await miFuncion(username,email,type)
-       return res.status(200).send(`se envio correntamente el mensaje de ${type}`)
+       return res.status(200).send(`Te enviamos un email de ${type}`)
         }
         return res.status(400).send("No se pudo enviar el correo de bienvenida, registra tu email")
               }
