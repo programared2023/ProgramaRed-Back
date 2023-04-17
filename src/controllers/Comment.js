@@ -50,8 +50,24 @@ const deleteComment = async (req, res) => {
     }
 }
 
+const saveLike = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { likes } = req.body
+        const [updated] = await conn.model("Comment").update({
+            likes: likes
+        }, { where: { id: id } })
+        console.log(`${updated} comment updated`);
+        return res.status(200).send("Like guardado")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     saveComment,
     updateComment,
-    deleteComment
+    deleteComment,
+    saveLike
 }
