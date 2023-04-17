@@ -1,4 +1,4 @@
-const { conn, Post, Rating, User, Tag, Favorite, Comment, Op } = require("../db");
+const { conn, Post, Rating, User, Tag, Favorite, PostFile, Comment, Op } = require("../db");
 
 async function getAllPost2(req, res) {
   const { title, username, tag, titleOrder, dateOrder } = req.query;
@@ -108,7 +108,7 @@ async function getPostById(req, res) {
       where: {
         [Op.and]: [{ id: id }, { isActive: true }]
       },
-      include: [User, Tag, {
+      include: [User, Tag, PostFile, {
         model: Rating,
         include: User
       }, Favorite, {
@@ -137,10 +137,17 @@ const createPost = async (req, res) => {
         .create({
           title: title,
           description: description,
-          files: files,
           UserId: userId,
           publishDate: new Date()
         });
+
+      files.map(async f => {
+        const postFile = await conn.model("PostFile").create({
+          url: f.url,
+          type: f.type
+        })
+        newPost.addPostFile(postFile)
+      })
 
       tags.map(async t => {
         const [tag, _] = await conn.model("Tag").findOrCreate({
@@ -221,11 +228,43 @@ const deletePost = async (req, res) => {
   }
 }
 
+const savePostLike = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { likes } = req.body
+    const [updated] = await conn.model("Post").update({
+      likes: likes + 1
+    }, { where: { id: id } })
+    console.log(`${updated} post updated`);
+    return res.status(200).send("Like guardado en el post")
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message)
+  }
+}
+
+const deletePostLike = async (req, res) => {
+  try {
+    const { id } = req.params
+    const { likes } = req.body
+    const [updated] = await conn.model("Post").update({
+      likes: likes - 1
+    }, { where: { id: id } })
+    console.log(`${updated} post updated`);
+    return res.status(200).send("Like eliminado del post")
+  } catch (error) {
+    console.log(error);
+    return res.status(500).send(error.message)
+  }
+}
+
 module.exports = {
   getAllPost,
   getPostById,
   createPost,
   getAllPost2,
   updatePost,
-  deletePost
+  deletePost,
+  savePostLike,
+  deletePostLike
 };

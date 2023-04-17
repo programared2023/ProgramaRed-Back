@@ -1,13 +1,14 @@
 const { Router } = require('express');
-const { getPostById, getAllPost, createPost, getAllPost2, updatePost, deletePost } = require('../controllers/Post');
+const { getPostById, getAllPost, savePostLike, deletePostLike, createPost, getAllPost2, updatePost, deletePost } = require('../controllers/Post');
 const getAllTags = require('../controllers/Tags');
 const { createUserAuth0, getUserByUsername, getUserById, getAllUsers, registerUser, deleteUser, updateUser, loginUser } = require('../controllers/User');
 const { createSubscription, createPayment, menssegerSuscribe } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
-const { saveComment, updateComment, deleteComment, saveLike } = require('../controllers/Comment');
+const { saveComment, updateComment, deleteComment, saveCommentLike, deleteCommentLike } = require('../controllers/Comment');
 const { saveRating, updateRating } = require('../controllers/Rating');
 const { countUsers, countPostByTag, commonTags, getUsers, unbanUser, getActiveUsers } = require("../controllers/Dashboard");
 const auth = require('../middleware/auth');
+const { createReport } = require('../controllers/Report');
 
 const router = Router();
 
@@ -44,11 +45,15 @@ router.put("/rating/:id", updateRating)
 router.post('/comments', saveComment)
 router.put("/comments/:id", updateComment)
 router.delete("/comments", deleteComment)
-router.put("/saveLikes/:id", saveLike)
+router.put("/saveCommentLike/:id", saveCommentLike)
+router.put("/deleteCommentLike/:id", deleteCommentLike)
 
 router.post("/rating", saveRating)
 router.put("/rating/:id", updateRating)
+router.put("/savePostLike/:id", savePostLike)
+router.put("/deletePostLike/:id", deletePostLike)
 
+router.post("/report", createReport)
 /** RUTAS DEL DASHBOARD */
 router.get("/countUsers", countUsers)
 router.get("/countPosts", countPostByTag)
