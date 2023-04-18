@@ -130,11 +130,105 @@ const getActiveUsers = async (req, res) => {
     }
 }
 
+const getReports = async (req, res) => {
+    try {
+        const reportedUsers = await conn.query(`
+            SELECT
+                r.username,
+                count(r.id) as cantidad
+            FROM "Reports" r
+                inner JOIN "Users" u on u.id = r."UserId"
+            WHERE r.username IS NOT NULL
+            GROUP BY r.username;
+        `)
+        const reportedPosts = await conn.query(`
+            SELECT
+                p.title as post,
+                count(r."PostId") as cantidad
+            FROM "Reports" r
+                inner JOIN "Posts" p on p.id = r."PostId"
+            WHERE r."PostId" IS NOT NULL
+            GROUP BY r."PostId", p.title;
+        `)
+        const reportedComments = await conn.query(`
+            SELECT
+                c.comment as comentario,
+                count(r."CommentId") as cantidad
+            FROM "Reports" r
+                inner JOIN "Comments" c on c.id = r."CommentId"
+            WHERE r."CommentId" IS NOT NULL
+            GROUP BY r."CommentId", c.comment;
+        `)
+        return res.status(200).json(
+            {
+                reportedUsers: reportedUsers[0],
+                reportedPosts: reportedPosts[0],
+                reportedComments: reportedComments[0]
+            })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
+const getAllReports = async (req, res) => {
+    try {
+        const { search } = req.query
+        let options = {
+            include: [conn.model("Post"), conn.model("Comment"), conn.model("User")]
+        }
+        if (search) {
+            options = {
+                ...options,
+                where: {
+                    [Op.or]: [
+                        {
+                            username: {
+                                [Op.like]: `%${search}%`
+                            }
+                        },
+                        {
+                            "$Post.title$": {
+                                [Op.iLike]: `%${search}%`
+                            }
+                        },
+                        {
+                            "$Comment.comment$": {
+                                [Op.iLike]: `%${search}%`
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+        const reports = await conn.model("Report").findAll(options)
+        return res.status(200).json(reports)
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+const getReportById = async (req, res) => {
+    try {
+        const { id } = req.params
+        const report = await conn.model("Report").findByPk(id, {
+            include: [conn.model("User"), conn.model("Post"), conn.model("Comment")]
+        })
+        if (report) return res.status(200).json(report.toJSON())
+        return res.status(400).send("Id incorrecto")
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
 module.exports = {
     countUsers,
     countPostByTag,
     commonTags,
     getUsers,
     unbanUser,
-    getActiveUsers
+    getActiveUsers,
+    getReports,
+    getAllReports,
+    getReportById
 }
