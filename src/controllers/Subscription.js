@@ -79,13 +79,12 @@ const createPayment = async (req, res) => {
 const menssegerSuscribe = async (req, res) => {
     const { username, email, type } = req.body
 
-
     try {
         if (username && email && type) {
             await miFuncion(username, email, type)
-            return res.status(200).send(`Te enviamos un email de ${type}`)
+            return res.status(200).send(`Le enviamos un email de ${type} a ${username}.`)
         }
-        return res.status(400).send("No se pudo enviar el correo de bienvenida, registra tu email")
+        return res.status(400).send("Faltan datos")
     }
     catch (error) {
         return res.status(400).send(error)
