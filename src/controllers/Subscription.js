@@ -1,13 +1,12 @@
 const { conn } = require('../db');
 const mercadopago = require('../lib/mercadoPago')
-const miFuncion=require("../config/Nodemaeiler")
+const miFuncion = require("../config/Nodemaeiler")
 
 const createSubscription = (req, res) => {
     try {
         const { title, description, price, user } = req.body
         mercadopago.preferences.create({
             binary_mode: true,
-            purpose: 'wallet_purchase',
             items: [
                 {
                     id: 'SUB-PREMIUM-123',
@@ -20,7 +19,10 @@ const createSubscription = (req, res) => {
             payer: {
                 name: user.username,
                 email: user.email,
-                date_created: new Date().toLocaleDateString(),
+                date_created: new Date().toLocaleDateString('es-AR'),
+            },
+            payment_methods: {
+                installments: 6
             },
             auto_return: "approved",
             back_urls: {
@@ -74,21 +76,21 @@ const createPayment = async (req, res) => {
         return res.status(500).send(error.message)
     }
 }
-const menssegerSuscribe=async (req,res)=>{
-    const {  username, email,type } = req.body
+const menssegerSuscribe = async (req, res) => {
+    const { username, email, type } = req.body
 
-          
-        try {
-         if(username&&email&&type){      
-            await miFuncion(username,email,type)
-       return res.status(200).send(`Te enviamos un email de ${type}`)
+
+    try {
+        if (username && email && type) {
+            await miFuncion(username, email, type)
+            return res.status(200).send(`Te enviamos un email de ${type}`)
         }
         return res.status(400).send("No se pudo enviar el correo de bienvenida, registra tu email")
-              }
-        catch (error) {
-          return res.status(400).send(error)
-        }
-     
+    }
+    catch (error) {
+        return res.status(400).send(error)
+    }
+
 
 }
 
