@@ -4,7 +4,6 @@ module.exports = (sequelize) => {
     sequelize.define("Report", {
         username: {
             type: DataTypes.STRING,
-            unique: true,
             allowNull: true
         },
         description: {
