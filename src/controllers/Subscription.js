@@ -82,7 +82,10 @@ const menssegerSuscribe = async (req, res) => {
     try {
         if (username && email && type) {
             await miFuncion(username, email, type)
-            return res.status(200).send(`Le enviamos un email de ${type} a ${username}.`)
+            return res.status(200).send(
+                type === 'Baneo' || type === 'Desbaneo'
+                    ? `Le enviamos un email de ${type} a ${username}.`
+                    : `Te enviamos un correo de ${type}`)
         }
         return res.status(400).send("Faltan datos")
     }
