@@ -71,7 +71,7 @@ async function getAllPost(req, res) {
   }
 
   let options = {
-    include: [User, Tag],
+    include: [User, Tag, PostFile, Rating],
     where: where,
     order: order
   };
@@ -92,7 +92,17 @@ async function getAllPost(req, res) {
         },
       };
     }
-    const posts = await conn.model("Post").findAll(options);
+    let posts = await conn.model("Post").findAll(options);
+    posts = posts?.map( (post, i) => {
+      let resultado = 0;
+      if (Array.isArray(post.dataValues.Ratings)) {
+        post.dataValues?.Ratings?.forEach( rating =>{
+          resultado += rating.vote;
+        })
+        post.dataValues.AvgRating = resultado / post.dataValues?.Ratings.length;
+      }
+      return post
+    })
     return res.status(200).json(posts);
   } catch (error) {
     console.log(error);
