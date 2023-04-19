@@ -49,10 +49,17 @@ const loginUser = async (req, res) => {
                 [Op.and]: [{ username: username }, { password: password }]
             }
         })
-        if (!user) return res.status(400).send("Credenciales invalidas")
+        if (!user) return res.status(400).send("Credenciales incorrectas!")
 
-        // const token = jwt.sign({ user: user.toJSON() }, process.env.SECRET_AUTH_KEY)
-        return res.status(200).json({ user: user.toJSON() })
+        return res.status(200).json(
+            {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+                isAdmin: user.isAdmin,
+                isPremium: user.isPremium,
+                isActive: user.isActive
+            })
     } catch (error) {
         console.log(error);
         return res.status(500).send(error.message)
