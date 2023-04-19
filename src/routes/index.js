@@ -5,7 +5,7 @@ const { createUserAuth0, getUserByUsername, getUserById, getAllUsers, registerUs
 const { createSubscription, createPayment, menssegerSuscribe } = require('../controllers/Subscription');
 const { saveFavorite, getFavoritesByUser, deleteFavorite } = require('../controllers/Favorite');
 const { saveComment, updateComment, deleteComment, saveCommentLike, deleteCommentLike } = require('../controllers/Comment');
-const { saveRating, updateRating } = require('../controllers/Rating');
+const { getRatingId,saveRating, updateRating } = require('../controllers/Rating');
 const { countUsers, countPostByTag, commonTags, getUsers, unbanUser, getActiveUsers, getReports, getAllReports, getReportById } = require("../controllers/Dashboard");
 const auth = require('../middleware/auth');
 const { createReport } = require('../controllers/Report');
@@ -39,8 +39,6 @@ router.get('/favorites/:userId', getFavoritesByUser)
 router.delete('/favorites', deleteFavorite)
 
 router.post('/comments', saveComment)
-router.post("/rating", saveRating)
-router.put("/rating/:id", updateRating)
 
 router.post('/comments', saveComment)
 router.put("/comments/:id", updateComment)
@@ -50,6 +48,7 @@ router.put("/deleteCommentLike/:id", deleteCommentLike)
 
 router.post("/rating", saveRating)
 router.put("/rating/:id", updateRating)
+router.get("/rating/:id", getRatingId)
 router.put("/savePostLike/:id", savePostLike)
 router.put("/deletePostLike/:id", deletePostLike)
 

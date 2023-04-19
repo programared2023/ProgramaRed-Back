@@ -34,7 +34,26 @@ const updateRating = async (req, res) => {
         return res.status(500).send(error.message)
     }
 }
+
+const getRatingId = async (req, res) => {
+    try {
+        const { id } = req.params
+        const sumCount = await conn.query(`
+        SELECT SUM(vote)/COUNT(vote) as rating
+        FROM "Posts" p
+        INNER JOIN "Ratings" r
+        ON p."id"= r."PostId" WHERE p.id =${id}
+        `)
+        return res.status(200).send(sumCount[0])
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error.message)
+    }
+}
+
 module.exports = {
     saveRating,
-    updateRating
+    updateRating,
+    getRatingId
 }
