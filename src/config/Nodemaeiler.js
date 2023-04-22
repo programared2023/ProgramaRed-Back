@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
   port: 465, // Puerto de origen seguro
   secure: true, // Usar SSL/TLS
   auth: {
-    user: "huntersoporteprueba@gmail.com",//'TU_DIRECCIÓN_DE_CORREO_ELECTRÓNICO_DE_ORIGEN',
-    pass: "ekxwcxsujqdfmdue"     //  'TU_CONTRASEÑA_DE_CORREO_ELECTRÓNICO_DE_ORIGEN'
+    user: "programared2023@gmail.com",//'TU_DIRECCIÓN_DE_CORREO_ELECTRÓNICO_DE_ORIGEN',
+    pass: "ouyfyxkuvyjyhgbz"     //  'TU_CONTRASEÑA_DE_CORREO_ELECTRÓNICO_DE_ORIGEN'
   }
 });
 
@@ -18,7 +18,7 @@ function miFuncion(username, email, type) {
 
   try {
     let envio = transporter.sendMail({
-      from: "huntersoporteprueba@gmail.com",
+      from: "programared2023@gmail.com",
       to: email,
       subject: `${type} ProgramaRed`,
       text: `${type}`,
